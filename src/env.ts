@@ -18,7 +18,7 @@ const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
-    NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE: z.number().optional(),
+    NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE: z.coerce.number().optional(),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,

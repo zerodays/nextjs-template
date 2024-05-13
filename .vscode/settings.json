@@ -4,11 +4,24 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.preferences.autoImportFileExcludePatterns": ["@radix-ui"],
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "@radix-ui",
+    "tailwindcss"
+  ],
   "eslint.rules.customizations": [
     {
       "rule": "prettier/prettier",
       "severity": "warn"
     }
+  ],
+  "tailwindCSS.experimental.classRegex": [
+    // Matches all objects with the name 'variants'
+    ["variants \\=([^;]*);", "'([^']*)'"],
+    ["variants \\=([^;]*);", "\"([^\"]*)\""],
+    ["variants \\=([^;]*);", "\\`([^\\`]*)\\`"],
+    // Matches all objects that are a parameter of 'cva' function
+    ["[^=]+ = cva\\(([^)]*)\\)", "'([^']*)'"],
+    ["[^=]+ = cva\\(([^)]*)\\)", "\"([^\"]*)\""],
+    ["[^=]+ = cva\\(([^)]*)\\)", "\\`([^\\`]*)\\`"]
   ]
 }

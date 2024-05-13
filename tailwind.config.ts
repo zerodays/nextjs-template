@@ -1,5 +1,8 @@
 import type { Config } from 'tailwindcss';
-import { fontFamily } from 'tailwindcss/defaultTheme';
+import defaultTheme from 'tailwindcss/defaultTheme';
+import { default as flattenColorPalette } from 'tailwindcss/lib/util/flattenColorPalette';
+import resolveConfig from 'tailwindcss/resolveConfig';
+import type { PluginAPI } from 'tailwindcss/types/config';
 
 const config = {
   darkMode: ['class'],
@@ -20,7 +23,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans],
+        sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -78,7 +81,22 @@ const config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), addVariablesForColors],
 } satisfies Config;
+
+// This adds CSS variables for all colors in the color palette
+function addVariablesForColors({ addBase, theme }: PluginAPI) {
+  const allColors = flattenColorPalette(theme('colors'));
+  const newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
+  );
+
+  addBase({
+    ':root': newVars,
+  });
+}
+
+// This is the resolved theme object that you can use in your application
+export const theme = resolveConfig(config).theme;
 
 export default config;

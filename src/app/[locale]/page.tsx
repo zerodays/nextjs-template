@@ -1,6 +1,7 @@
 import SentryExample from '@/components/examples/sentry-example';
 import LanguageSwitcher from '@/components/language-switcher';
 import ThemeToggle from '@/components/theme-toggle';
+import { BackgroundBeams } from '@/components/ui/bakcground-beams';
 import { getScopedI18n } from '@/i18n/server';
 
 export default async function Home() {
@@ -21,6 +22,7 @@ export default async function Home() {
           <SentryExample />
         </div>
       </div>
+      <BackgroundBeams />
     </main>
   );
 }

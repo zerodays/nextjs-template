@@ -14,6 +14,6 @@ module.exports = {
   endOfLine: 'lf',
   tailwindConfig: './tailwind.config.ts',
   tailwindAttributes: ['className'],
-  tailwindFunctions: ['cn', 'tw', 'clsx'],
+  tailwindFunctions: ['cn', 'tw', 'clsx', 'cva'],
   plugins: ['prettier-plugin-organize-imports', 'prettier-plugin-tailwindcss'],
 };
