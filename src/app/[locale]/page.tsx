@@ -1,11 +1,10 @@
+import SentryExample from '@/components/examples/sentry-example';
 import LanguageSwitcher from '@/components/language-switcher';
 import ThemeToggle from '@/components/theme-toggle';
-import env from '@/env';
 import { getScopedI18n } from '@/i18n/server';
 
 export default async function Home() {
   const t = await getScopedI18n('home');
-  console.log(env.NODE_ENV);
 
   return (
     <main className="flex min-h-screen flex-col items-stretch gap-y-8 p-8">
@@ -18,10 +17,9 @@ export default async function Home() {
           <h1 className="text-5xl font-bold">{t('title')}</h1>
           <p className="font-mono">{t('subtitle')}</p>
         </div>
-        {/* <div className="flex flex-col gap-y-4">
-          <h2 className="text-3xl font-bold">{t('section1.title')}</h2>
-          <p>{t('section1.content')}</p>
-        </div> */}
+        <div className="flex flex-col gap-y-4">
+          <SentryExample />
+        </div>
       </div>
     </main>
   );
