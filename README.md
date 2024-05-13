@@ -32,6 +32,23 @@ Getting started with this Next.js template is straightforward. Follow these step
    pnpm dev
    ```
 
+## 🧐 What's Included?
+
+- Next.js 14 with [App router](https://nextjs.org/docs/app/building-your-application/routing)
+- [TailwindCSS](https://tailwindcss.com/) for styling
+- [Prettier](https://prettier.io/)
+- [ESLint](https://eslint.org/) for finding problems with following rule sets:
+  - [next/core-web-vitals](https://nextjs.org/docs/app/building-your-application/configuring/eslint)
+  - [eslint:recommended](https://eslint.org/docs/latest/rules/)
+  - [typescript-eslint](https://typescript-eslint.io/)
+  - [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react)
+  - [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
+  - [eslint-plugin-sonarjs](https://github.com/SonarSource/eslint-plugin-sonarjs)
+- [next-international](https://next-international.vercel.app/) for internationalization
+- [react-hook-form](https://react-hook-form.com/) for forms
+- [zod](https://zod.dev/) for form validation
+- Github Actions for lint, typecheck and localizations checks
+
 ## 📂 Project Structure
 
 Here's an overview of the folder structure provided in this template:

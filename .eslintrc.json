@@ -51,5 +51,13 @@
         "ignoreProps": true
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src/components/ui/**/*.tsx"],
+      "rules": {
+        "react/prop-types": "off"
+      }
+    }
+  ]
 }
