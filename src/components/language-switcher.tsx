@@ -55,7 +55,7 @@ const LanguageSwitcher = () => {
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." />
+          <CommandInput placeholder={t('selectLanguage')} />
           <CommandEmpty>{t('noItems')}</CommandEmpty>
           <CommandList>
             <CommandGroup>
