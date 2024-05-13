@@ -14,6 +14,8 @@
       "severity": "warn"
     }
   ],
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
   "tailwindCSS.experimental.classRegex": [
     // Matches all objects with the name 'variants'
     ["variants \\=([^;]*);", "'([^']*)'"],
