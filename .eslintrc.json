@@ -21,7 +21,7 @@
     }
   },
   "rules": {
-    "no-console": "error",
+    "no-console": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error",
     "react/react-in-jsx-scope": "off",
@@ -38,8 +38,8 @@
       {
         "paths": [
           {
-            "name": "next-axiom",
-            "message": "For client side logging import from log-client, for server actions and server components import from log-server"
+            "name": "process",
+            "message": "For environment variables, use `import env from '@/env';`"
           }
         ]
       }

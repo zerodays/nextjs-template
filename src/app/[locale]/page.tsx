@@ -1,9 +1,11 @@
 import LanguageSwitcher from '@/components/language-switcher';
 import ThemeToggle from '@/components/theme-toggle';
+import env from '@/env';
 import { getScopedI18n } from '@/i18n/server';
 
 export default async function Home() {
   const t = await getScopedI18n('home');
+  console.log(env.NODE_ENV);
 
   return (
     <main className="flex min-h-screen flex-col items-stretch gap-y-8 p-8">
