@@ -1,0 +1,55 @@
+{
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "sonarjs",
+    "check-file"
+  ],
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:sonarjs/recommended-legacy"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "no-console": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "error",
+    "react/react-in-jsx-scope": "off",
+    "check-file/filename-naming-convention": [
+      "error",
+      {
+        "./src/**/*.{jsx,tsx}": "KEBAB_CASE",
+        "./src/**/*.{js,ts}": "KEBAB_CASE"
+      },
+      { "ignoreMiddleExtensions": true }
+    ],
+    "@typescript-eslint/no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "next-axiom",
+            "message": "For client side logging import from log-client, for server actions and server components import from log-server"
+          }
+        ]
+      }
+    ],
+    "react/jsx-no-literals": [
+      "warn",
+      {
+        "noStrings": true,
+        "ignoreProps": true
+      }
+    ]
+  }
+}

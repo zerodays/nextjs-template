@@ -1,0 +1,7 @@
+.next
+.husky
+build
+
+node_modules
+pnpm-lock.yaml
+package.json
