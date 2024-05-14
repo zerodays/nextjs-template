@@ -15,8 +15,8 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useScopedI18n } from '@/i18n/client';
-import { useMutation } from '@tanstack/react-query';
 import { Loader2Icon, SendIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 // Always use zod to validate your form
@@ -39,16 +39,24 @@ export const FormExample = () => {
     },
   });
 
-  // use actual api for form submission
-  const { isLoading, mutate } = useMutation(async (data: FormValues) => {
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log('Form submitted:', data);
-  });
+  // Use react-query to handle actual form submission
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading) {
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+    return () => clearTimeout(timeout);
+  }, [isLoading]);
 
   function onSubmit(data: FormValues) {
+    console.log(data);
     toast(t('formSubmitted'));
-    mutate(data);
+    setIsLoading(true);
     form.reset();
   }
 
