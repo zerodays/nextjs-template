@@ -3,6 +3,8 @@ import ThemeToggle from '@/components/common/theme-toggle';
 import { FormExample } from '@/components/examples/form-example';
 import SentryExample from '@/components/examples/sentry-example';
 import ToastExample from '@/components/examples/toast-example';
+import ZodiosClientExample from '@/components/examples/zodios-client-example';
+import ZodiosServerExample from '@/components/examples/zodios-server-example';
 import { BackgroundBeams } from '@/components/ui/background-beams';
 import { getScopedI18n } from '@/i18n/server';
 
@@ -25,6 +27,8 @@ export default async function Home() {
           <FormExample />
           <SentryExample />
           <ToastExample />
+          <ZodiosServerExample />
+          <ZodiosClientExample />
         </div>
       </div>
     </main>
