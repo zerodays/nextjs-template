@@ -1,6 +1,6 @@
+import LanguageSwitcher from '@/components/common/language-switcher';
+import ThemeToggle from '@/components/common/theme-toggle';
 import SentryExample from '@/components/examples/sentry-example';
-import LanguageSwitcher from '@/components/language-switcher';
-import ThemeToggle from '@/components/theme-toggle';
 import { BackgroundBeams } from '@/components/ui/bakcground-beams';
 import { getScopedI18n } from '@/i18n/server';
 
@@ -9,6 +9,7 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-stretch gap-y-8 p-8">
+      <BackgroundBeams />
       <div className="flex items-center justify-end gap-x-8">
         <LanguageSwitcher />
         <ThemeToggle />
@@ -22,7 +23,6 @@ export default async function Home() {
           <SentryExample />
         </div>
       </div>
-      <BackgroundBeams />
     </main>
   );
 }
