@@ -15,7 +15,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { api } from '@/zodios/zodios';
 import { Check, ChevronsUpDown } from 'lucide-react';
@@ -38,19 +37,11 @@ const ZodiosClientExample = () => {
   });
 
   return (
-    <div className="flex flex-col gap-y-2 rounded-lg bg-foreground/5 p-4 backdrop-blur-sm">
-      <p className="font-semibold">
-        This is an example of{' '}
-        <span className="rounded-lg bg-foreground px-1 font-bold text-background">
-          client side
-        </span>{' '}
-        Zodios Hooks usage.
-      </p>
+    <div className="flex flex-col gap-y-2">
       <p>
         Below is the data returned from an external API connected through zodios
         client.
       </p>
-      <Separator className="my-2" />
       <div className="flex justify-between">
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
@@ -105,6 +96,7 @@ const ZodiosClientExample = () => {
           <div>Loading...</div>
         ) : (
           <textarea
+            readOnly
             className="h-full w-full p-4"
             value={data && JSON.stringify(data[0], null, 2)}
           />
