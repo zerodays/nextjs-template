@@ -130,4 +130,3 @@ Customize and configure your Next.js project to match your preferences and proje
 ### 📦 UI Components Configuration
 
 - **shadcn/ui**: Modify the `components.json` to configure or extend the UI components provided by `shadcn/ui`.
-

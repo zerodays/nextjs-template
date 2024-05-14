@@ -1,0 +1,19 @@
+name: 'Test'
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  test:
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run tests
+        run: |
+          pnpm test
