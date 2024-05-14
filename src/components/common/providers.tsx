@@ -1,7 +1,8 @@
 'use client';
 
-import ThemeProvider from '@/components/common/theme-provider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { type ThemeProviderProps } from 'next-themes/dist/types';
 import { PropsWithChildren, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -58,3 +59,7 @@ export default function Providers({ children }: PropsWithChildren) {
     </ThemeProvider>
   );
 }
+
+const ThemeProvider = ({ children, ...props }: ThemeProviderProps) => {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+};

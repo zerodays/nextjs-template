@@ -1,5 +1,5 @@
+import customPlguin from '@/zodios/custom-plugin';
 import jokesApi from '@/zodios/example';
-import zodiosPlugin from '@/zodios/toast-plugin';
 import { Zodios } from '@zodios/core';
 import { ZodiosHooks } from '@zodios/react';
 
@@ -9,7 +9,7 @@ const API_URL = 'https://official-joke-api.appspot.com';
 // Zodios API client
 const apiClient = new Zodios(API_URL, [...jokesApi]);
 
-apiClient.use(zodiosPlugin);
+apiClient.use(customPlguin);
 const api = new ZodiosHooks('jokesApi', apiClient);
 
 export { api, apiClient };

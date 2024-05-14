@@ -4,8 +4,8 @@ import { AxiosError } from 'axios';
 const SKIP_ERROR_HANDLING_URLS = [''];
 const SKIP_SUCCESS_HANDLING_URLS = [''];
 
-const zodiosPlugin: ZodiosPlugin = {
-  name: 'zodiosPlugin',
+const customPlugin: ZodiosPlugin = {
+  name: 'customPlugin',
   error: async (api, config, err) => {
     if (SKIP_ERROR_HANDLING_URLS.includes(config.url)) {
       console.log('Skipping error handling for', config.url);
@@ -60,4 +60,4 @@ const zodiosPlugin: ZodiosPlugin = {
   },
 };
 
-export default zodiosPlugin;
+export default customPlugin;

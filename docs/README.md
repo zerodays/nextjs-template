@@ -63,7 +63,8 @@ Getting started with this Next.js template is straightforward. Follow these step
 - [shadcn/ui](https://ui.shadcn.com/) setup for UI components
 - [react-hook-form](https://react-hook-form.com/) for forms
 - [zod](https://zod.dev/) for form validation
-- Github Actions for lint, typecheck and localizations checks
+- [Zodios](https://www.zodios.org/docs/client) for external API calls with validation
+- Github Actions for lint, typecheck, localizations checks and tests.
 
 ## 📂 Project Structure
 
@@ -71,6 +72,7 @@ Here's an overview of the folder structure provided in this template:
 
 ```bash
 .
+├── .github             # GitHub Actions configurations for CI/CD + PR template
 ├── .husky              # Husky configurations for managing Git hooks
 ├── .next               # Auto-generated folder for optimized production builds
 ├── .vscode             # VSCode settings to maintain consistency in development environments
@@ -85,6 +87,7 @@ Here's an overview of the folder structure provided in this template:
 │   │   ├── globals.css # Global CSS styles
 │   │   └── layout.tsx  # Main layout component
 │   ├── components      # Reusable UI components
+│   │   ├── common      # Common components like providers, headers, footers, etc.
 │   │   ├── examples    # Example components to demonstrate usage
 │   │   └── ui          # UI specific components like buttons, modals, etc.
 │   ├── i18n            # Internationalization configurations
@@ -92,6 +95,7 @@ Here's an overview of the folder structure provided in this template:
 │   │   ├── sl          # Slovenian language translations
 │   │   └── ...setup    # i18n setup files
 │   ├── lib             # Library code and utility functions
+│   │   ├── hooks       # Custom hooks for common tasks
 │   │   └── utils.ts    # Utility functions for common tasks
 │   ├── env.ts          # Environment-specific configurations
 │   └── middleware.ts   # Custom middleware functions

@@ -37,6 +37,7 @@ const jokesApi = apiBuilder({
     ],
     errors: [{ status: 'default', schema: z.object({ message: z.string() }) }],
   })
+  // Just an example of how to add an endpoint with a body parameter
   .addEndpoint({
     method: 'post',
     path: '/example/:exampleId',
