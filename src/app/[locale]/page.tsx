@@ -1,7 +1,8 @@
 import LanguageSwitcher from '@/components/common/language-switcher';
 import ThemeToggle from '@/components/common/theme-toggle';
 import SentryExample from '@/components/examples/sentry-example';
-import { BackgroundBeams } from '@/components/ui/bakcground-beams';
+import ToastExample from '@/components/examples/toast-example';
+import { BackgroundBeams } from '@/components/ui/background-beams';
 import { getScopedI18n } from '@/i18n/server';
 
 export default async function Home() {
@@ -21,6 +22,7 @@ export default async function Home() {
         </div>
         <div className="flex flex-col gap-y-4">
           <SentryExample />
+          <ToastExample />
         </div>
       </div>
     </main>
