@@ -1,5 +1,6 @@
 import LanguageSwitcher from '@/components/common/language-switcher';
 import ThemeToggle from '@/components/common/theme-toggle';
+import { FormExample } from '@/components/examples/form-example';
 import SentryExample from '@/components/examples/sentry-example';
 import ToastExample from '@/components/examples/toast-example';
 import { BackgroundBeams } from '@/components/ui/background-beams';
@@ -20,7 +21,8 @@ export default async function Home() {
           <h1 className="text-5xl font-bold">{t('title')}</h1>
           <p className="font-mono">{t('subtitle')}</p>
         </div>
-        <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col gap-y-8">
+          <FormExample />
           <SentryExample />
           <ToastExample />
         </div>
