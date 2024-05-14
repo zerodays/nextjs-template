@@ -2,6 +2,7 @@
   "name": "nextjs-template",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@9.1.0",
   "scripts": {
     "dev": "infisical run -- next dev",
     "build": "next build",
@@ -11,7 +12,8 @@
     "format": "prettier --check --ignore-path .prettierignore .",
     "format:fix": "prettier --write --ignore-path .prettierignore .",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "i18n": "tsx ./scripts/validate-translations.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -69,6 +71,7 @@
     "prettier-plugin-tailwindcss": "^0.5.14",
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
+    "tsx": "^4.10.2",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.8.0"
   },
