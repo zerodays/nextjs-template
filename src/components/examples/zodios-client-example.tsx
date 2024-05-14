@@ -31,6 +31,11 @@ const ZodiosClientExample = () => {
       type: jokeType,
     },
   });
+  const { mutate } = api.useAddExample({
+    params: {
+      exampleId: 'example',
+    },
+  });
 
   return (
     <div className="flex flex-col gap-y-2 rounded-lg bg-foreground/5 p-4 backdrop-blur-sm">
@@ -46,45 +51,55 @@ const ZodiosClientExample = () => {
         client.
       </p>
       <Separator className="my-2" />
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            className="w-[200px] justify-between">
-            {jokeType}
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
-          <Command>
-            <CommandInput placeholder="Select Joke Type" />
-            <CommandEmpty>{'No items found'}</CommandEmpty>
-            <CommandList>
-              <CommandGroup>
-                {types.map((type) => (
-                  <CommandItem
-                    key={type}
-                    value={type}
-                    onSelect={(currentValue) => {
-                      setJokeType(currentValue);
-                      setOpen(false);
-                    }}>
-                    <Check
-                      className={cn(
-                        'mr-2 h-4 w-4',
-                        type === jokeType ? 'opacity-100' : 'opacity-0',
-                      )}
-                    />
-                    {type}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </PopoverContent>
-      </Popover>
+      <div className="flex justify-between">
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-[200px] justify-between">
+              {jokeType}
+              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[200px] p-0">
+            <Command>
+              <CommandInput placeholder="Select Joke Type" />
+              <CommandEmpty>{'No items found'}</CommandEmpty>
+              <CommandList>
+                <CommandGroup>
+                  {types.map((type) => (
+                    <CommandItem
+                      key={type}
+                      value={type}
+                      onSelect={(currentValue) => {
+                        setJokeType(currentValue);
+                        setOpen(false);
+                      }}>
+                      <Check
+                        className={cn(
+                          'mr-2 h-4 w-4',
+                          type === jokeType ? 'opacity-100' : 'opacity-0',
+                        )}
+                      />
+                      {type}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+        <Button
+          onClick={() =>
+            mutate({
+              name: 'Example',
+            })
+          }>
+          Trigger Error
+        </Button>
+      </div>
       <div className="flex h-48 items-center justify-center overflow-hidden rounded-lg bg-black">
         {isLoading || isRefetching ? (
           <div>Loading...</div>

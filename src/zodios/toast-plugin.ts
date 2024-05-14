@@ -1,12 +1,11 @@
 import { ZodiosPlugin } from '@zodios/core';
 import { AxiosError } from 'axios';
-import { toast } from 'sonner';
 
 const SKIP_ERROR_HANDLING_URLS = [''];
 const SKIP_SUCCESS_HANDLING_URLS = [''];
 
-const zodiosToastPlugin: ZodiosPlugin = {
-  name: 'zodiosToastPlugin',
+const zodiosPlugin: ZodiosPlugin = {
+  name: 'zodiosPlugin',
   error: async (api, config, err) => {
     if (SKIP_ERROR_HANDLING_URLS.includes(config.url)) {
       console.log('Skipping error handling for', config.url);
@@ -14,13 +13,10 @@ const zodiosToastPlugin: ZodiosPlugin = {
     }
 
     if (err instanceof AxiosError) {
-      toast('Zodios API Error', {
-        description: err.response?.data?.message || 'An error occurred',
-        action: {
-          label: 'Dismiss',
-          onClick: () => console.log('Dismiss'),
-        },
-      });
+      console.log(
+        'Zodios API Error',
+        err.response?.data?.message || 'An error occurred',
+      );
     }
 
     throw err;
@@ -39,6 +35,9 @@ const zodiosToastPlugin: ZodiosPlugin = {
     const getMessage = () => {
       let message = '';
       switch (config.method?.toUpperCase()) {
+        case 'GET':
+          message = 'Fetched successfully';
+          break;
         case 'POST':
           message = 'Created successfully';
           break;
@@ -54,16 +53,11 @@ const zodiosToastPlugin: ZodiosPlugin = {
     };
 
     if (response.status >= 200 && response.status < 300) {
-      toast(getMessage(), {
-        action: {
-          label: 'Dismiss',
-          onClick: () => console.log('Dismiss'),
-        },
-      });
+      console.log('Zodios API Success', getMessage());
     }
 
     return response;
   },
 };
 
-export default zodiosToastPlugin;
+export default zodiosPlugin;
