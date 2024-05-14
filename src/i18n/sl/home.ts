@@ -1,7 +1,7 @@
 export default {
   title: 'Pozdravljeni in dobrodošli v NextJS predlogi',
   subtitle:
-    'To je predloga za NextJS s TailwindCSS, TypeScript, i18n, Jest, Zod in React Hook Form, shadcn/ui in več!',
+    'To je predloga za NextJS s TailwindCSS, TypeScript, i18n, Jest, Zod, React Hook Form, shadcn/ui in več!',
 
   formExample: {
     email: 'Email',
