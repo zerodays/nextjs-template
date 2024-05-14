@@ -15,8 +15,8 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useScopedI18n } from '@/i18n/client';
+import { useMutation } from '@tanstack/react-query';
 import { Loader2Icon, SendIcon } from 'lucide-react';
-import { useState } from 'react';
 import { toast } from 'sonner';
 
 // Always use zod to validate your form
@@ -39,17 +39,21 @@ export const FormExample = () => {
     },
   });
 
-  // TODO: add react-query mutation for form submission
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // use actual api for form submission
+  const { isLoading, mutate } = useMutation(async (data: FormValues) => {
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    console.log('Form submitted:', data);
+  });
 
   function onSubmit(data: FormValues) {
-    console.log(data);
     toast(t('formSubmitted'));
-    setIsSubmitting(true);
+    mutate(data);
+    form.reset();
   }
 
   // When form is submitting, disable inputs and button
-  const disabled = isSubmitting;
+  const disabled = isLoading;
 
   return (
     <Form {...form}>
@@ -75,7 +79,7 @@ export const FormExample = () => {
           variant="outline"
           className="gap-2"
           disabled={disabled}>
-          {isSubmitting ? (
+          {isLoading ? (
             <Loader2Icon className="h-4 w-4 animate-spin" />
           ) : (
             <SendIcon className="h-4 w-4" />
