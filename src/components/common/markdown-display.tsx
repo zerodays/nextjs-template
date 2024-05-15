@@ -7,7 +7,7 @@ interface MarkdownDisplayProps {
 const MarkdownDisplay = ({ content }: MarkdownDisplayProps) => {
   return (
     <Markdown
-      className="prose prose-zinc dark:prose-invert min-w-full"
+      className="prose prose-zinc min-w-full dark:prose-invert"
       remarkPlugins={[remarkGfm]}>
       {content}
     </Markdown>
