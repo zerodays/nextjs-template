@@ -12,7 +12,7 @@ const ZodiosServerExample = async () => {
       </p>
       <textarea
         readOnly
-        className="h-48 rounded-lg p-4"
+        className="h-48 rounded-lg p-4 text-sm"
         value={JSON.stringify(data, null, 2)}
       />
     </div>

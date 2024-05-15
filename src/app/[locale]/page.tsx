@@ -21,43 +21,26 @@ export default async function Home() {
   return (
     <main className="flex h-screen flex-col items-stretch gap-y-8 p-8">
       <BackgroundBeams />
-      <div className="flex items-center justify-end gap-x-8">
+      <div className="container flex items-center justify-end gap-x-8 px-0">
         <LanguageSwitcher />
         <ThemeToggle />
       </div>
       <div className="container relative grow">
-        <div className="absolute inset-0 grid grid-cols-2 gap-x-8">
-          <div className="flex flex-col gap-y-4">
+        <div className="absolute inset-0 grid grid-cols-3 gap-x-8">
+          <div className="col-span-2 flex flex-col gap-y-4 pr-20">
             <h1 className="text-5xl font-bold">{t('title')}</h1>
             <p className="font-mono">{t('subtitle')}</p>
             <div className="relative grow">
-              <div className="absolute inset-0 flex flex-col overflow-auto">
+              <div className="scrollbar-none absolute inset-0 flex flex-col overflow-auto pt-8">
                 <Markdown
-                  remarkPlugins={[remarkGfm]}
-                  components={{
-                    h1: ({ children }) => (
-                      <h1 className="mb-2 mt-4 text-4xl font-bold">
-                        {children}
-                      </h1>
-                    ),
-                    h2: ({ children }) => (
-                      <h2 className="mb-2 mt-4 text-3xl font-bold">
-                        {children}
-                      </h2>
-                    ),
-                    h3: ({ children }) => (
-                      <h3 className="mb-2 mt-4 text-2xl font-bold">
-                        {children}
-                      </h3>
-                    ),
-                    p: ({ children }) => <p className="text-lg">{children}</p>,
-                  }}>
+                  className="prose prose-zinc dark:prose-invert min-w-full"
+                  remarkPlugins={[remarkGfm]}>
                   {readme}
                 </Markdown>
               </div>
             </div>
           </div>
-          <div className="flex h-full flex-col gap-y-8 overflow-auto">
+          <div className="scrollbar-none flex h-full flex-col gap-y-8 overflow-auto">
             <ExampleCard
               title="✅ Form example"
               subtitle={

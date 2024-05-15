@@ -81,7 +81,12 @@ const config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), addVariablesForColors],
+  plugins: [
+    require('tailwindcss-animate'),
+    require('@tailwindcss/typography'),
+    require('tailwind-scrollbar'),
+    addVariablesForColors,
+  ],
 } satisfies Config;
 
 // This adds CSS variables for all colors in the color palette

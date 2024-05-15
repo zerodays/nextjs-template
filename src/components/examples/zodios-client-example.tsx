@@ -97,7 +97,7 @@ const ZodiosClientExample = () => {
         ) : (
           <textarea
             readOnly
-            className="h-full w-full p-4"
+            className="h-full w-full p-4 text-sm"
             value={data && JSON.stringify(data[0], null, 2)}
           />
         )}
