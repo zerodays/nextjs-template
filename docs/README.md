@@ -38,6 +38,8 @@ Getting started with this Next.js template is straightforward. Follow these step
 - [TailwindCSS](https://tailwindcss.com/) for styling
   - Also exposes styles as global CSS variables and theme object
   - [tailwindcss-animate](https://github.com/jamiebuilds/tailwindcss-animate) plugin for quick animations
+  - [tailwindcss/typography](https://github.com/tailwindlabs/tailwindcss-typography) plugin for typography (prose - useful for rendering markdown)
+  - [tailwind-scrollbar](https://github.com/adoxography/tailwind-scrollbar) plugin for customizing scrollbars
 - [Prettier](https://prettier.io/)
   - [Organizing Imports](https://www.npmjs.com/package/prettier-plugin-organize-imports) enabled
   - [Tailwind class sorting](https://www.npmjs.com/package/prettier-plugin-tailwindcss/v/0.0.0-insiders.d539a72) enabled
@@ -65,6 +67,8 @@ Getting started with this Next.js template is straightforward. Follow these step
 - [zod](https://zod.dev/) for form validation
 - [Zodios](https://www.zodios.org/docs/client) for external API calls with validation
 - Github Actions for lint, typecheck, localizations checks and tests.
+- [Utility hooks](https://usehooks.com/) for common tasks
+  - Custom `useScrollCallback` for efficient scroll event handling
 
 ## 📂 Project Structure
 
