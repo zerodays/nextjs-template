@@ -11,6 +11,9 @@ import { BackgroundBeams } from '@/components/ui/background-beams';
 import env from '@/env';
 import { getScopedI18n } from '@/i18n/server';
 import path from 'path';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import readme from '../../../docs/README.md';
 
 export default async function Home() {
   const t = await getScopedI18n('home');
@@ -22,11 +25,37 @@ export default async function Home() {
         <LanguageSwitcher />
         <ThemeToggle />
       </div>
-      <div className="relative grow">
+      <div className="container relative grow">
         <div className="absolute inset-0 grid grid-cols-2 gap-x-8">
           <div className="flex flex-col gap-y-4">
             <h1 className="text-5xl font-bold">{t('title')}</h1>
             <p className="font-mono">{t('subtitle')}</p>
+            <div className="relative grow">
+              <div className="absolute inset-0 flex flex-col overflow-auto">
+                <Markdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    h1: ({ children }) => (
+                      <h1 className="mb-2 mt-4 text-4xl font-bold">
+                        {children}
+                      </h1>
+                    ),
+                    h2: ({ children }) => (
+                      <h2 className="mb-2 mt-4 text-3xl font-bold">
+                        {children}
+                      </h2>
+                    ),
+                    h3: ({ children }) => (
+                      <h3 className="mb-2 mt-4 text-2xl font-bold">
+                        {children}
+                      </h3>
+                    ),
+                    p: ({ children }) => <p className="text-lg">{children}</p>,
+                  }}>
+                  {readme}
+                </Markdown>
+              </div>
+            </div>
           </div>
           <div className="flex h-full flex-col gap-y-8 overflow-auto">
             <ExampleCard

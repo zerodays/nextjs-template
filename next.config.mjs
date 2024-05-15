@@ -1,6 +1,16 @@
 import { withSentryConfig } from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  // This allows importing markdown files as raw strings
+  // Example: import markdown from './file.md';
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.md$/,
+      type: 'asset/source',
+    });
+    return config;
+  },
+};
 
 export default withSentryConfig(
   nextConfig,
