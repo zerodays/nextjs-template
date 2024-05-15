@@ -1,8 +1,7 @@
+import FormExample from '@/components/examples/form-example';
 import '@testing-library/jest-dom';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-
-import { FormExample } from './form-example';
 
 describe('FormExample Component', () => {
   it('renders correctly', () => {

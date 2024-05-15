@@ -29,7 +29,7 @@ const formSchema = z.object({
 // Infer TS type from zod schema
 type FormValues = z.infer<typeof formSchema>;
 
-export const FormExample = () => {
+const FormExample = () => {
   const t = useScopedI18n('home.formExample');
 
   const form = useForm<FormValues>({
@@ -98,3 +98,5 @@ export const FormExample = () => {
     </Form>
   );
 };
+
+export default FormExample;
