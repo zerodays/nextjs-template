@@ -127,6 +127,7 @@ export const BackgroundBeams = React.memo(
             </radialGradient>
           </defs>
         </svg>
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
       </div>
     );
   },

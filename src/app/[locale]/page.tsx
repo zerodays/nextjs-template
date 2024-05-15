@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-literals */
 import LanguageSwitcher from '@/components/common/language-switcher';
+import Navbar from '@/components/common/navbar';
 import ThemeToggle from '@/components/common/theme-toggle';
 import ExampleCard from '@/components/examples/example-card';
 import { FormExample } from '@/components/examples/form-example';
@@ -11,6 +12,7 @@ import { BackgroundBeams } from '@/components/ui/background-beams';
 import env from '@/env';
 import { getScopedI18n } from '@/i18n/server';
 import path from 'path';
+import { FaGithub } from 'react-icons/fa';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import readme from '../../../docs/README.md';
@@ -19,19 +21,29 @@ export default async function Home() {
   const t = await getScopedI18n('home');
 
   return (
-    <main className="flex h-screen flex-col items-stretch gap-y-8 p-8">
+    <main className="flex flex-col items-stretch gap-y-8 py-4">
       <BackgroundBeams />
-      <div className="container flex items-center justify-end gap-x-8 px-0">
-        <LanguageSwitcher />
-        <ThemeToggle />
-      </div>
-      <div className="container relative grow">
-        <div className="absolute inset-0 grid grid-cols-3 gap-x-8">
-          <div className="col-span-2 flex flex-col gap-y-4 pr-20">
+      <Navbar>
+        <a
+          className="justify-self-center"
+          target="_blank"
+          href="https://github.com/zerodays/nextjs-template"
+          rel="noreferrer">
+          <FaGithub className="h-8 w-8 transition-colors hover:text-foreground/70" />
+        </a>
+        <div className="flex items-center gap-x-4">
+          <LanguageSwitcher />
+          <ThemeToggle />
+        </div>
+      </Navbar>
+
+      <div className="container relative grow pb-20">
+        <div className="flex flex-col gap-8 lg:grid lg:grid-cols-3">
+          <div className="flex flex-col gap-y-4 lg:col-span-2">
             <h1 className="text-5xl font-bold">{t('title')}</h1>
             <p className="font-mono">{t('subtitle')}</p>
             <div className="relative grow">
-              <div className="scrollbar-none absolute inset-0 flex flex-col overflow-auto pt-8">
+              <div className="scrollbar-none flex flex-col pt-8 lg:overflow-auto">
                 <Markdown
                   className="prose prose-zinc dark:prose-invert min-w-full"
                   remarkPlugins={[remarkGfm]}>
@@ -40,7 +52,7 @@ export default async function Home() {
               </div>
             </div>
           </div>
-          <div className="scrollbar-none flex h-full flex-col gap-y-8 overflow-auto">
+          <div className="scrollbar-none flex h-full flex-col gap-y-8 lg:overflow-auto">
             <ExampleCard
               title="✅ Form example"
               subtitle={
@@ -75,7 +87,7 @@ export default async function Home() {
               <ToastExample />
             </ExampleCard>
             <ExampleCard
-              title="🔗 Zodios server example"
+              title="🔗 Zodios use on server example"
               subtitle={
                 <p>
                   Check out{' '}
@@ -86,7 +98,7 @@ export default async function Home() {
               <ZodiosServerExample />
             </ExampleCard>
             <ExampleCard
-              title="🔗 Zodios client example"
+              title="🔗 Zodios use on client example"
               subtitle={
                 <p>
                   Check out{' '}
@@ -111,7 +123,8 @@ const CodeLink = ({
   lineNumber?: number;
 }) => {
   let url = '';
-  if (env.NODE_ENV === 'development') {
+  const isDev = env.NODE_ENV === 'development';
+  if (isDev) {
     const projectRoot = process.cwd();
     const absolutePath = path.join(projectRoot, filePath);
     url = `vscode://file/${absolutePath}:${lineNumber}`;
@@ -122,7 +135,10 @@ const CodeLink = ({
 
   return (
     <span className="mx-1 rounded-lg bg-foreground px-2 text-sm font-semibold text-background transition-colors hover:bg-foreground/70">
-      <a href={url} rel="noopener noreferrer">
+      <a
+        target={!isDev ? '_blank' : undefined}
+        href={url}
+        rel="noopener noreferrer">
         {fileName}
       </a>
     </span>

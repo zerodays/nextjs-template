@@ -83,6 +83,7 @@ const ZodiosClientExample = () => {
           </PopoverContent>
         </Popover>
         <Button
+          variant="outline"
           onClick={() =>
             mutate({
               name: 'Example',
@@ -91,13 +92,13 @@ const ZodiosClientExample = () => {
           Trigger Error
         </Button>
       </div>
-      <div className="flex h-48 items-center justify-center overflow-hidden rounded-lg bg-black">
+      <div className="flex h-44 items-center justify-center">
         {isLoading || isRefetching ? (
           <div>Loading...</div>
         ) : (
           <textarea
             readOnly
-            className="h-full w-full p-4 text-sm"
+            className="h-full w-full rounded-lg p-4 text-sm focus:outline-foreground"
             value={data && JSON.stringify(data[0], null, 2)}
           />
         )}
