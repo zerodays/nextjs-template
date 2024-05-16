@@ -50,7 +50,9 @@ Getting started with this Next.js template is straightforward. Follow these step
   - [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react)
   - [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
   - [eslint-plugin-sonarjs](https://github.com/SonarSource/eslint-plugin-sonarjs)
-- [Husky](https://typicode.github.io/husky/) for Git hooks
+- [Husky](https://typicode.github.io/husky/) for Git hooks with:
+  - [commitlint](https://commitlint.js.org/) for conventional commits
+  - [lint-staged](https://github.com/lint-staged/lint-staged)
 - [.vscode](https://code.visualstudio.com/) settings for consistent development environment
   - [Prettier format + fix on save](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
   - Prevent auto imports from `@radix-ui` and `tailwindcss`
@@ -78,11 +80,8 @@ Here's an overview of the folder structure provided in this template:
 .
 ├── .github             # GitHub Actions configurations for CI/CD + PR template
 ├── .husky              # Husky configurations for managing Git hooks
-├── .next               # Auto-generated folder for optimized production builds
 ├── .vscode             # VSCode settings to maintain consistency in development environments
 ├── docs                # Extended documentation and guides
-│   └── README.md       # The main README file for the project
-├── node_modules        # Contains all the project's pnpm dependencies
 ├── public              # Stores static files like images and fonts
 ├── scripts             # Custom scripts for development tasks like testing and linting
 ├── src                 # Source files for the Next.js application
@@ -103,6 +102,7 @@ Here's an overview of the folder structure provided in this template:
 │   │   └── utils.ts    # Utility functions for common tasks
 │   ├── env.ts          # Environment-specific configurations
 │   └── middleware.ts   # Custom middleware functions
+└── README.md           # The main README file for the project
 ```
 
 ## 🔧 Configuration

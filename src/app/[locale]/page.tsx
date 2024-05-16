@@ -15,7 +15,7 @@ import ExampleCard from '@/components/examples/example-card';
 import { BackgroundBeams } from '@/components/ui/background-beams';
 import { getScopedI18n } from '@/i18n/server';
 import { FaGithub } from 'react-icons/fa';
-import readme from '../../../docs/README.md';
+import readme from '../../../README.md';
 
 export default async function Home() {
   const t = await getScopedI18n('home');
