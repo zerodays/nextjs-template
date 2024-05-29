@@ -69,6 +69,8 @@ Getting started with this Next.js template is straightforward. Follow these step
 - [zod](https://zod.dev/) for form validation
 - [Zodios](https://www.zodios.org/docs/client) for external API calls with validation
 - Github Actions for lint, typecheck, localizations checks and tests.
+- [openapi-zod-client](https://www.npmjs.com/package/openapi-zod-client) for generating API clients
+  - We include a handlebars template for generating the zodios client from the openapi spec. It can be used with `pnpm gen-api` command.
 - [Utility hooks](https://usehooks.com/) for common tasks
   - Custom `useScrollCallback` for efficient scroll event handling
 

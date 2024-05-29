@@ -13,7 +13,8 @@
     "format:fix": "prettier --write --ignore-path .prettierignore .",
     "test": "jest",
     "test:watch": "jest --watch",
-    "i18n": "tsx ./scripts/validate-translations.ts"
+    "i18n": "tsx ./scripts/validate-translations.ts",
+    "gen-api": "infisical run --command 'openapi-zod-client \"$NEXT_PUBLIC_API_URL/docs/bundle.yml\" -o './src/zodios/inedx.ts' -t ./scripts/zodios-client-template.hbs' && prettier --write ./src/zodios/inedx.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -68,10 +69,11 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-sonarjs": "^1.0.3",
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.2",
+    "openapi-zod-client": "^1.18.1",
     "postcss": "^8",
     "prettier": "^3.2.5",
     "prettier-plugin-organize-imports": "^3.2.4",
