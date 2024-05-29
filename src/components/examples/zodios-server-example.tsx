@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-literals */
-import { apiClient } from '@/zodios/zodios';
+import { apiClient } from '@/zodios/index';
 
 const ZodiosServerExample = async () => {
   const data = await apiClient.getRandomJoke();

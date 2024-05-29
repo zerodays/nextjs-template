@@ -16,7 +16,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { api } from '@/zodios/zodios';
+import { api } from '@/zodios/index';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { useState } from 'react';
 
