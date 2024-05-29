@@ -19,6 +19,10 @@ const env = createEnv({
   client: {
     NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
     NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE: z.coerce.number().optional(),
+    // TODO: Below env is meant to be an url to the API,
+    // which should not be optional when added to the project.
+    // (it is used for generating the API client with the "gen-api" command)
+    NEXT_PUBLIC_API_URL: z.string().optional(),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -32,6 +36,7 @@ const env = createEnv({
     NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
     NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE:
       process.env.NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
 });
 

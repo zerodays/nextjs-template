@@ -14,7 +14,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "i18n": "tsx ./scripts/validate-translations.ts",
-    "gen-api": "infisical run --command 'openapi-zod-client \"$EXPO_PUBLIC_API_URL/docs/bundle.yml\" -o './src/zodios/inedx.ts' -t ./scripts/zodios-client-template.hbs' && prettier --write ./src/zodios/inedx.ts"
+    "gen-api": "infisical run --command 'openapi-zod-client \"$NEXT_PUBLIC_API_URL/docs/bundle.yml\" -o './src/zodios/inedx.ts' -t ./scripts/zodios-client-template.hbs' && prettier --write ./src/zodios/inedx.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
