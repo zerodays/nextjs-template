@@ -70,7 +70,8 @@ Getting started with this Next.js template is straightforward. Follow these step
 - [Zodios](https://www.zodios.org/docs/client) for external API calls with validation
 - Github Actions for lint, typecheck, localizations checks and tests.
 - [openapi-zod-client](https://www.npmjs.com/package/openapi-zod-client) for generating API clients
-  - We include a handlebars template for generating the zodios client from the openapi spec. It can be used with `pnpm gen-api` command.
+  - We include a handlebars template for generating the zodios client from the openapi spec. It can be used with `pnpm gen-api` command
+  - Adjust the `gen-api` command in [package.json](package.json) to fetch the OpenAPI `yaml` file from the correct URL
 - [Utility hooks](https://usehooks.com/) for common tasks
   - Custom `useScrollCallback` for efficient scroll event handling
 
@@ -109,7 +110,7 @@ Here's an overview of the folder structure provided in this template:
 
 ## 🔧 Configuration
 
-Customize and configure your Next.js project to match your preferences and project requirements. Below is a guide on how to tweak various aspects of the setup.
+Customize and configure your Next.js project to match your preferences and project requirements. Below is a short guide on how to tweak various aspects of the setup.
 
 ### 🛠️ Prettier & ESLint Configuration
 
@@ -125,7 +126,7 @@ Customize and configure your Next.js project to match your preferences and proje
 
 - **TailwindCSS**: Customize the `tailwind.config.ts` to alter your design theme, such as changing the color palette or configuring responsiveness.
 
-- **Global Styles**: Modify `src/app/globals.css` to adjust global styles or add new CSS variables.
+- **Global Styles**: Modify `src/app/globals.css` to adjust global styles or add new CSS variables. See [theming documentation](https://ui.shadcn.com/docs/theming) for more information.
 
 ### 🌍 Environment Variables
 
@@ -139,4 +140,5 @@ Customize and configure your Next.js project to match your preferences and proje
 
 ### 📦 UI Components Configuration
 
-- **shadcn/ui**: Modify the `components.json` to configure or extend the UI components provided by `shadcn/ui`.
+- **shadcn/ui**: Modify the `components.json` to configure or extend the UI components provided by `shadcn/ui`. Before starting a new project, check for possible component updates. To install new components and get more information, visit the [shadcn/ui documentation](https://ui.shadcn.com/).
+- Do not be afraid to modify the UI components to fit your project's needs. That's the whole point of using copy-paste components!
