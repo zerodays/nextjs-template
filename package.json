@@ -30,7 +30,7 @@
     "@uidotdev/usehooks": "^2.4.1",
     "@zodios/core": "^10.9.6",
     "@zodios/react": "^10.4.5",
-    "axios": "^1.6.8",
+    "axios": "^1.7.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",

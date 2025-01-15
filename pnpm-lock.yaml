@@ -43,13 +43,13 @@ importers:
         version: 2.4.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@zodios/core':
         specifier: ^10.9.6
-        version: 10.9.6(axios@1.7.2)(zod@3.23.8)
+        version: 10.9.6(axios@1.7.4)(zod@3.23.8)
       '@zodios/react':
         specifier: ^10.4.5
-        version: 10.4.5(@tanstack/react-query@4.36.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@zodios/core@10.9.6(axios@1.7.2)(zod@3.23.8))(react@18.3.1)
+        version: 10.4.5(@tanstack/react-query@4.36.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@zodios/core@10.9.6(axios@1.7.4)(zod@3.23.8))(react@18.3.1)
       axios:
-        specifier: ^1.6.8
-        version: 1.7.2
+        specifier: ^1.7.4
+        version: 1.7.4
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -1718,8 +1718,8 @@ packages:
     resolution: {integrity: sha512-M0JtH+hlOL5pLQwHOLNYZaXuhqmvS8oExsqB1SBYgA4Dk7u/xx+YdGHXaK5pyUfed5mYXdlYiphWq3G8cRi5JQ==}
     engines: {node: '>=4'}
 
-  axios@1.7.2:
-    resolution: {integrity: sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==}
+  axios@1.7.4:
+    resolution: {integrity: sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==}
 
   axobject-query@3.2.1:
     resolution: {integrity: sha512-jsyHu61e6N4Vbz/v18DHwWYKK0bSWLqn47eeDSKPB7m8tqMHF9YJ+mhIk2lVteyZrY8tnSj/jHOv4YiTCuCJgg==}
@@ -6225,15 +6225,15 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@zodios/core@10.9.6(axios@1.7.2)(zod@3.23.8)':
+  '@zodios/core@10.9.6(axios@1.7.4)(zod@3.23.8)':
     dependencies:
-      axios: 1.7.2
+      axios: 1.7.4
       zod: 3.23.8
 
-  '@zodios/react@10.4.5(@tanstack/react-query@4.36.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@zodios/core@10.9.6(axios@1.7.2)(zod@3.23.8))(react@18.3.1)':
+  '@zodios/react@10.4.5(@tanstack/react-query@4.36.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@zodios/core@10.9.6(axios@1.7.4)(zod@3.23.8))(react@18.3.1)':
     dependencies:
       '@tanstack/react-query': 4.36.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@zodios/core': 10.9.6(axios@1.7.2)(zod@3.23.8)
+      '@zodios/core': 10.9.6(axios@1.7.4)(zod@3.23.8)
       react: 18.3.1
 
   JSONStream@1.3.5:
@@ -6413,7 +6413,7 @@ snapshots:
 
   axe-core@4.7.0: {}
 
-  axios@1.7.2:
+  axios@1.7.4:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0
@@ -8883,8 +8883,8 @@ snapshots:
     dependencies:
       '@apidevtools/swagger-parser': 10.1.0(openapi-types@12.1.3)
       '@liuli-util/fs-extra': 0.1.0
-      '@zodios/core': 10.9.6(axios@1.7.2)(zod@3.23.8)
-      axios: 1.7.2
+      '@zodios/core': 10.9.6(axios@1.7.4)(zod@3.23.8)
+      axios: 1.7.4
       cac: 6.7.14
       handlebars: 4.7.8
       openapi-types: 12.1.3
