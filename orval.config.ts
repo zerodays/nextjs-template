@@ -7,6 +7,7 @@ export default defineConfig({
       target: 'src/api/endpoints.ts',
       schemas: 'src/api/model',
       client: 'react-query',
+      clean: true,
       mock: true,
       biome: true,
     },
