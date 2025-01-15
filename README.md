@@ -1,6 +1,6 @@
 # Next.js Template
 
-Welcome to the Next.js Template project! This template is designed to be the ideal starting point for your modern NextJS applications, streamlining the development process right from the get-go.
+Welcome to the Next.js Template project! This template is designed to be the ideal starting point for your modern Next.js applications, streamlining the development process right from the get-go.
 
 ## 🚀 Quick Start
 
@@ -34,46 +34,32 @@ Getting started with this Next.js template is straightforward. Follow these step
 
 ## 🧐 What's Included?
 
-- Next.js 14 with [App router](https://nextjs.org/docs/app/building-your-application/routing)
-- [TailwindCSS](https://tailwindcss.com/) for styling
-  - Also exposes styles as global CSS variables and theme object
-  - [tailwindcss-animate](https://github.com/jamiebuilds/tailwindcss-animate) plugin for quick animations
-  - [tailwindcss/typography](https://github.com/tailwindlabs/tailwindcss-typography) plugin for typography (prose - useful for rendering markdown)
-  - [tailwind-scrollbar](https://github.com/adoxography/tailwind-scrollbar) plugin for customizing scrollbars
-- [Prettier](https://prettier.io/)
-  - [Organizing Imports](https://www.npmjs.com/package/prettier-plugin-organize-imports) enabled
-  - [Tailwind class sorting](https://www.npmjs.com/package/prettier-plugin-tailwindcss/v/0.0.0-insiders.d539a72) enabled
-- [ESLint](https://eslint.org/) for finding problems with following rule sets:
-  - [next/core-web-vitals](https://nextjs.org/docs/app/building-your-application/configuring/eslint)
-  - [eslint:recommended](https://eslint.org/docs/latest/rules/)
-  - [typescript-eslint](https://typescript-eslint.io/)
-  - [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react)
-  - [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
-  - [eslint-plugin-sonarjs](https://github.com/SonarSource/eslint-plugin-sonarjs)
-- [Husky](https://typicode.github.io/husky/) for Git hooks with:
+- **Next.js 14** with [App Router](https://nextjs.org/docs/app/building-your-application/routing)
+- **TailwindCSS** for styling
+  - Exposes styles as global CSS variables and theme object
+  - Includes plugins like [tailwindcss-animate](https://github.com/jamiebuilds/tailwindcss-animate), [tailwindcss/typography](https://github.com/tailwindlabs/tailwindcss-typography), and [tailwind-scrollbar](https://github.com/adoxography/tailwind-scrollbar)
+- **Biome.js** for formatting and linting
+  - Replaces ESLint and Prettier
+  - Configured for accessibility, correctness, and custom formatting
+  - Automatically organizes imports
+- **Orval** for generating API clients from OpenAPI specs
+  - Configured to use `react-query` for API calls
+  - Supports mocking and integration with Biome.js
+- **React Hook Form** for forms
+- **Zod** for form validation
+- **Git Hooks** with Husky for:
   - [commitlint](https://commitlint.js.org/) for conventional commits
-  - [lint-staged](https://github.com/lint-staged/lint-staged)
-- [.vscode](https://code.visualstudio.com/) settings for consistent development environment
-  - [Prettier format + fix on save](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-  - Prevent auto imports from `@radix-ui` and `tailwindcss`
-  - Prioritize non-relative imports (e.g. `@/components`)
-  - Enable Tailwind highlighting and typesafety inside specific variables and functions (e.g. `cva()`)
-- [next-international](https://next-international.vercel.app/) for internationalization
-  - server side with `await getScopedI18n('fileName')`
-  - client side with `useScopedI18n('fileName')`
-- [t3-oss/env-nextjs](https://github.com/t3-oss/t3-env) for typesafe environment variables
-- [Infisical](https://infisical.com/) for injecting env vars
-- [Sentry](https://sentry.io/) for error/event tracking
-- [shadcn/ui](https://ui.shadcn.com/) setup for UI components
-- [react-hook-form](https://react-hook-form.com/) for forms
-- [zod](https://zod.dev/) for form validation
-- [Zodios](https://www.zodios.org/docs/client) for external API calls with validation
-- Github Actions for lint, typecheck, localizations checks and tests.
-- [openapi-zod-client](https://www.npmjs.com/package/openapi-zod-client) for generating API clients
-  - We include a handlebars template for generating the zodios client from the openapi spec. It can be used with `pnpm gen-api` command
-  - Adjust the `gen-api` command in [package.json](package.json) to fetch the OpenAPI `yaml` file from the correct URL
-- [Utility hooks](https://usehooks.com/) for common tasks
-  - Custom `useScrollCallback` for efficient scroll event handling
+  - [lint-staged](https://github.com/okonet/lint-staged) for staged changes
+- **VS Code Settings** for consistent development environment
+  - Auto format and fix on save with Biome.js
+  - Prioritize non-relative imports
+- **Internationalization** using [next-international](https://next-international.vercel.app/)
+  - Server-side: `await getScopedI18n('fileName')`
+  - Client-side: `useScopedI18n('fileName')`
+- **Type-safe Environment Variables** with [t3-oss/env-nextjs](https://github.com/t3-oss/t3-env)
+- **Sentry** for error/event tracking
+- **Shadcn/UI** setup for reusable components
+- **Utility Hooks** for common tasks
 
 ## 📂 Project Structure
 
@@ -86,59 +72,62 @@ Here's an overview of the folder structure provided in this template:
 ├── .vscode             # VSCode settings to maintain consistency in development environments
 ├── docs                # Extended documentation and guides
 ├── public              # Stores static files like images and fonts
-├── scripts             # Custom scripts for development tasks like testing and linting
+├── scripts             # Custom scripts for development tasks like API generation
 ├── src                 # Source files for the Next.js application
+│   ├── api             # API clients generated by Orval
 │   ├── app             # Core application files including pages and API routes
-│   │   ├── [locale]    # Actual localized routes/pages of the application
-│   │   ├── globals.css # Global CSS styles
-│   │   └── layout.tsx  # Main layout component
 │   ├── components      # Reusable UI components
-│   │   ├── common      # Common components like providers, headers, footers, etc.
-│   │   ├── examples    # Example components to demonstrate usage
-│   │   └── ui          # UI specific components like buttons, modals, etc.
 │   ├── i18n            # Internationalization configurations
-│   │   ├── en          # English language translations
-│   │   ├── sl          # Slovenian language translations
-│   │   └── ...setup    # i18n setup files
-│   ├── lib             # Library code and utility functions
-│   │   ├── hooks       # Custom hooks for common tasks
-│   │   └── utils.ts    # Utility functions for common tasks
-│   ├── env.ts          # Environment-specific configurations
+│   ├── lib             # Utility functions and custom hooks
+│   ├── env.ts          # Type-safe environment variable configuration
 │   └── middleware.ts   # Custom middleware functions
 └── README.md           # The main README file for the project
 ```
 
 ## 🔧 Configuration
 
-Customize and configure your Next.js project to match your preferences and project requirements. Below is a short guide on how to tweak various aspects of the setup.
+### 🔍 Biome.js Configuration
 
-### 🛠️ Prettier & ESLint Configuration
+Biome.js replaces ESLint and Prettier, offering formatting, linting, and organizing imports in one tool. Key configurations include:
+- Custom rules for accessibility, correctness, and complexity
+- Automatic import organization
+- Custom formatting styles for JavaScript, TypeScript, and CSS
 
-- **Prettier**: Modify the `.prettierrc.js` to change code formatting rules. You can adjust settings like print width, tab width, and more to fit your coding style.
+Configuration file: [`biome.jsonc`](./biome.jsonc)
 
-- **ESLint**: To change linting rules, edit the `.eslintrc.json`. You can add or remove specific rules or plugins according to your project needs.
+Run the formatter and linter:
+```bash
+pnpm format
+pnpm lint
+```
 
-### 🌐 Internationalization and Localization
+### 📡 Orval Configuration
 
-- **Adding New Languages**: To support a new language, add a corresponding folder in `src/i18n`, then update the `LOCALES` variable in `src/i18n/i18n.ts`. Include the new language in both `client.tsx` and `server.tsx` configurations to ensure proper loading.
+Orval generates `react-query` clients from OpenAPI specs. It is set up to:
+- Fetch the OpenAPI spec from a deployed URL
+- Split the output into endpoints and schemas
+- Enable mocking for local development
+- Integrate with Biome.js for consistent formatting
 
-### 🎨 TailwindCSS and Global Styles
+API client generation script: [`scripts/generate-api.ts`](./scripts/generate-api.ts)
 
-- **TailwindCSS**: Customize the `tailwind.config.ts` to alter your design theme, such as changing the color palette or configuring responsiveness.
-
-- **Global Styles**: Modify `src/app/globals.css` to adjust global styles or add new CSS variables. See [theming documentation](https://ui.shadcn.com/docs/theming) for more information.
+Run the script:
+```bash
+pnpm gen-api
+```
 
 ### 🌍 Environment Variables
 
-- **Opting Out of Infisical**: Remove `.infisical.json` and create `.env.local` for local environment variable management. Change the dev script in `package.json` from `"dev": "infisical run -- next dev"` to `"dev": "next dev"`.
+Environment variables are managed with `t3-oss/env-nextjs` for type safety. Update `src/env.ts` to define and validate variables.
 
-- **Type-Safe Environment Variables**: Edit `src/env.ts` to define and manage your environment variables using `t3-oss/env-nextjs` for type safety.
+### 📦 TailwindCSS
 
-### 🚨 Sentry Configuration
+TailwindCSS is fully configured with plugins for animations, typography, and custom scrollbars. Customize `tailwind.config.ts` to extend themes or add plugins.
 
-- **Setup**: Ensure environment variables `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE`, and `SENTRY_AUTH_TOKEN` are set up in your environment configuration file (like `.env.local` if you are not using Infisical) for Sentry to function correctly.
+### 🌐 Internationalization
 
-### 📦 UI Components Configuration
+Add languages in `src/i18n` and update `i18n.ts` to include new translations.
 
-- **shadcn/ui**: Modify the `components.json` to configure or extend the UI components provided by `shadcn/ui`. Before starting a new project, check for possible component updates. To install new components and get more information, visit the [shadcn/ui documentation](https://ui.shadcn.com/).
-- Do not be afraid to modify the UI components to fit your project's needs. That's the whole point of using copy-paste components!
+## 🤝 Contributing
+
+We welcome contributions to this template! Open an issue or submit a pull request to suggest improvements.

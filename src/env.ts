@@ -1,4 +1,3 @@
-// src/env.mjs
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
@@ -8,7 +7,9 @@ const env = createEnv({
    * Will throw if you access these variables on the client.
    */
   server: {
-    NODE_ENV: z.enum(['development', 'production', 'test']),
+    NODE_ENV: z
+      .enum(['development', 'production', 'test'])
+      .default('development'),
     SENTRY_AUTH_TOKEN: z.string().min(1),
   },
   /*

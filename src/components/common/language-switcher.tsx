@@ -21,7 +21,7 @@ import {
   useCurrentLocale,
   useScopedI18n,
 } from '@/i18n/client';
-import { LOCALES, Locale } from '@/i18n/i18n';
+import { LOCALES, type Locale } from '@/i18n/i18n';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 

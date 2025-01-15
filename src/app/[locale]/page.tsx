@@ -8,8 +8,6 @@ import {
   FormExample,
   SentryExample,
   ToastExample,
-  ZodiosClientExample,
-  ZodiosServerExample,
 } from '@/components/examples';
 import ExampleCard from '@/components/examples/example-card';
 import { BackgroundBeams } from '@/components/ui/background-beams';
@@ -81,28 +79,6 @@ export default async function Home() {
                 </p>
               }>
               <ToastExample />
-            </ExampleCard>
-            <ExampleCard
-              title="🔗 Zodios use on server example"
-              subtitle={
-                <p>
-                  Check out{' '}
-                  <CodeLink filePath="/src/components/examples/zodios-server-example.tsx" />{' '}
-                  to see how its made
-                </p>
-              }>
-              <ZodiosServerExample />
-            </ExampleCard>
-            <ExampleCard
-              title="🔗 Zodios use on client example"
-              subtitle={
-                <p>
-                  Check out{' '}
-                  <CodeLink filePath="/src/components/examples/zodios-client-example.tsx" />{' '}
-                  to see how its made
-                </p>
-              }>
-              <ZodiosClientExample />
             </ExampleCard>
           </div>
         </div>
