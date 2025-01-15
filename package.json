@@ -10,7 +10,7 @@
     "prepare": "husky install",
     "lint": "biome check .",
     "lint:fix": "biome check --write",
-    "test": "jest",
+    "test": "jest --transformIgnorePatterns",
     "test:watch": "jest --watch",
     "i18n": "tsx ./scripts/validate-translations.ts",
     "gen-api": "infisical run --command 'tsx ./scripts/generate-api.ts'"
