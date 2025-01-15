@@ -1,7 +1,7 @@
 import { Toaster } from '@/components/ui/sonner';
 import { I18nProvider } from '@/i18n/client';
-import { defaultLocale, isLocale, Locale } from '@/i18n/i18n';
-import { ReactElement } from 'react';
+import { type Locale, defaultLocale, isLocale } from '@/i18n/i18n';
+import type { ReactElement } from 'react';
 
 export default async function Layout({
   params,

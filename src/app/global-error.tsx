@@ -1,8 +1,6 @@
-/* eslint-disable react/jsx-no-literals */
 'use client';
 
 import * as Sentry from '@sentry/nextjs';
-import Error from 'next/error';
 import { useEffect } from 'react';
 
 export default function GlobalError({
@@ -17,7 +15,7 @@ export default function GlobalError({
   }, [error]);
 
   return (
-    <html>
+    <html lang="en" suppressHydrationWarning>
       <body>
         <div>
           <h2>Something went wrong!</h2>

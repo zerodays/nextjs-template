@@ -1,7 +1,7 @@
 'use client';
 
 import { createI18nClient } from 'next-international/client';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import type { Locale, UnsafeT } from './i18n';
 
 import { defaultLocale } from './i18n';

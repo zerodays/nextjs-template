@@ -1,5 +1,5 @@
+import path from 'node:path';
 import env from '@/env';
-import path from 'path';
 
 interface CodeLinkProps {
   filePath: string;
