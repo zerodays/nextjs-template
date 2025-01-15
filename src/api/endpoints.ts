@@ -5,18 +5,22 @@
  * ClasssMate backend
  * OpenAPI spec version: 1.0
  */
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from "@tanstack/react-query";
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   MutationFunction,
   QueryFunction,
   QueryKey,
+  UndefinedInitialDataOptions,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
   UseQueryResult,
-} from '@tanstack/react-query';
-import axios from 'axios';
-import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+} from "@tanstack/react-query";
+import axios from "axios";
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import type {
   AutosolveRequest,
   AutosolveResponse,
@@ -37,7 +41,7 @@ import type {
   Subscription,
   Tag,
   TagBase,
-} from './model';
+} from "./model";
 
 /**
  * Create a new chat
@@ -46,7 +50,7 @@ import type {
 export const createChat = (
   createChatBody: CreateChatBody,
   params?: CreateChatParams,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<Chat>> => {
   return axios.post(`/chats`, createChatBody, {
     ...options,
@@ -57,7 +61,7 @@ export const createChat = (
 export const getCreateChatMutationOptions = <
   TData = Awaited<ReturnType<typeof createChat>>,
   TError = AxiosError<unknown>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -67,10 +71,10 @@ export const getCreateChatMutationOptions = <
   >;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['createChat'];
+  const mutationKey = ["createChat"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -105,7 +109,7 @@ export type CreateChatMutationError = AxiosError<unknown>;
 export const useCreateChat = <
   TData = Awaited<ReturnType<typeof createChat>>,
   TError = AxiosError<unknown>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -131,7 +135,7 @@ export const useCreateChat = <
  */
 export const getChat = (
   chatId: string,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<Chat>> => {
   return axios.get(`/chats/${chatId}`, options);
 };
@@ -142,13 +146,15 @@ export const getGetChatQueryKey = (chatId: string) => {
 
 export const getGetChatQueryOptions = <
   TData = Awaited<ReturnType<typeof getChat>>,
-  TError = AxiosError<void>,
+  TError = AxiosError<void>
 >(
   chatId: string,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getChat>>, TError, TData>;
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getChat>>, TError, TData>
+    >;
     axios?: AxiosRequestConfig;
-  },
+  }
 ) => {
   const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
@@ -164,7 +170,7 @@ export const getGetChatQueryOptions = <
     enabled: !!chatId,
     ...queryOptions,
   } as UseQueryOptions<Awaited<ReturnType<typeof getChat>>, TError, TData> & {
-    queryKey: QueryKey;
+    queryKey: DataTag<QueryKey, TData, TError>;
   };
 };
 
@@ -173,24 +179,86 @@ export type GetChatQueryResult = NonNullable<
 >;
 export type GetChatQueryError = AxiosError<void>;
 
+export function useGetChat<
+  TData = Awaited<ReturnType<typeof getChat>>,
+  TError = AxiosError<void>
+>(
+  chatId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getChat>>, TError, TData>
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getChat>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+    axios?: AxiosRequestConfig;
+  }
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetChat<
+  TData = Awaited<ReturnType<typeof getChat>>,
+  TError = AxiosError<void>
+>(
+  chatId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getChat>>, TError, TData>
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getChat>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+    axios?: AxiosRequestConfig;
+  }
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetChat<
+  TData = Awaited<ReturnType<typeof getChat>>,
+  TError = AxiosError<void>
+>(
+  chatId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getChat>>, TError, TData>
+    >;
+    axios?: AxiosRequestConfig;
+  }
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 /**
  * @summary Get a chat
  */
 
 export function useGetChat<
   TData = Awaited<ReturnType<typeof getChat>>,
-  TError = AxiosError<void>,
+  TError = AxiosError<void>
 >(
   chatId: string,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getChat>>, TError, TData>;
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getChat>>, TError, TData>
+    >;
     axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  }
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetChatQueryOptions(chatId, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
+    queryKey: DataTag<QueryKey, TData, TError>;
   };
 
   query.queryKey = queryOptions.queryKey;
@@ -206,7 +274,7 @@ export function useGetChat<
 export const sendMessage = (
   chatId: string,
   chatMessageContent: ChatMessageContent,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<string>> => {
   return axios.put(`/chats/${chatId}`, chatMessageContent, options);
 };
@@ -214,7 +282,7 @@ export const sendMessage = (
 export const getSendMessageMutationOptions = <
   TData = Awaited<ReturnType<typeof sendMessage>>,
   TError = AxiosError<unknown>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -224,10 +292,10 @@ export const getSendMessageMutationOptions = <
   >;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['sendMessage'];
+  const mutationKey = ["sendMessage"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -262,7 +330,7 @@ export type SendMessageMutationError = AxiosError<unknown>;
 export const useSendMessage = <
   TData = Awaited<ReturnType<typeof sendMessage>>,
   TError = AxiosError<unknown>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -291,7 +359,7 @@ of the problem.
  */
 export const createAutosolveChat = (
   createAutosolveChatBody: CreateAutosolveChatBody,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<CreateAutosolveChat200>> => {
   return axios.post(`/chats/autosolve`, createAutosolveChatBody, options);
 };
@@ -299,7 +367,7 @@ export const createAutosolveChat = (
 export const getCreateAutosolveChatMutationOptions = <
   TData = Awaited<ReturnType<typeof createAutosolveChat>>,
   TError = AxiosError<unknown>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -309,10 +377,10 @@ export const getCreateAutosolveChatMutationOptions = <
   >;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['createAutosolveChat'];
+  const mutationKey = ["createAutosolveChat"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -347,7 +415,7 @@ export type CreateAutosolveChatMutationError = AxiosError<unknown>;
 export const useCreateAutosolveChat = <
   TData = Awaited<ReturnType<typeof createAutosolveChat>>,
   TError = AxiosError<unknown>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -373,7 +441,7 @@ export const useCreateAutosolveChat = <
  */
 export const autosolve = (
   autosolveRequest: AutosolveRequest,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<AutosolveResponse>> => {
   return axios.post(`/autosolve`, autosolveRequest, options);
 };
@@ -381,7 +449,7 @@ export const autosolve = (
 export const getAutosolveMutationOptions = <
   TData = Awaited<ReturnType<typeof autosolve>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -391,10 +459,10 @@ export const getAutosolveMutationOptions = <
   >;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['autosolve'];
+  const mutationKey = ["autosolve"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -429,7 +497,7 @@ export type AutosolveMutationError = AxiosError<void>;
 export const useAutosolve = <
   TData = Awaited<ReturnType<typeof autosolve>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -450,7 +518,7 @@ export const useAutosolve = <
  */
 export const createSubscription = (
   createSubscriptionBody: CreateSubscriptionBody,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<CreateSubscription200>> => {
   return axios.post(`/subscription/new`, createSubscriptionBody, options);
 };
@@ -458,7 +526,7 @@ export const createSubscription = (
 export const getCreateSubscriptionMutationOptions = <
   TData = Awaited<ReturnType<typeof createSubscription>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -468,10 +536,10 @@ export const getCreateSubscriptionMutationOptions = <
   >;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['createSubscription'];
+  const mutationKey = ["createSubscription"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -506,7 +574,7 @@ export type CreateSubscriptionMutationError = AxiosError<void>;
 export const useCreateSubscription = <
   TData = Awaited<ReturnType<typeof createSubscription>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -531,7 +599,7 @@ export const useCreateSubscription = <
  * @summary Manage a subscription
  */
 export const manageSubscription = (
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<ManageSubscription200>> => {
   return axios.post(`/subscription/manage`, undefined, options);
 };
@@ -539,15 +607,15 @@ export const manageSubscription = (
 export const getManageSubscriptionMutationOptions = <
   TData = Awaited<ReturnType<typeof manageSubscription>>,
   TError = AxiosError<unknown>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<TData, TError, void, TContext>;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['manageSubscription'];
+  const mutationKey = ["manageSubscription"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -580,7 +648,7 @@ export type ManageSubscriptionMutationError = AxiosError<unknown>;
 export const useManageSubscription = <
   TData = Awaited<ReturnType<typeof manageSubscription>>,
   TError = AxiosError<unknown>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<TData, TError, void, TContext>;
   axios?: AxiosRequestConfig;
@@ -597,7 +665,7 @@ export const useManageSubscription = <
  */
 export const pauseSubscription = (
   pauseSubscriptionBody: PauseSubscriptionBody,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<void>> => {
   return axios.post(`/subscription/pause`, pauseSubscriptionBody, options);
 };
@@ -605,7 +673,7 @@ export const pauseSubscription = (
 export const getPauseSubscriptionMutationOptions = <
   TData = Awaited<ReturnType<typeof pauseSubscription>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -615,10 +683,10 @@ export const getPauseSubscriptionMutationOptions = <
   >;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['pauseSubscription'];
+  const mutationKey = ["pauseSubscription"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -653,7 +721,7 @@ export type PauseSubscriptionMutationError = AxiosError<void>;
 export const usePauseSubscription = <
   TData = Awaited<ReturnType<typeof pauseSubscription>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -679,7 +747,7 @@ export const usePauseSubscription = <
  * @summary Resume a subscription
  */
 export const resumeSubscription = (
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<void>> => {
   return axios.post(`/subscription/resume`, undefined, options);
 };
@@ -687,15 +755,15 @@ export const resumeSubscription = (
 export const getResumeSubscriptionMutationOptions = <
   TData = Awaited<ReturnType<typeof resumeSubscription>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<TData, TError, void, TContext>;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['resumeSubscription'];
+  const mutationKey = ["resumeSubscription"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -728,7 +796,7 @@ export type ResumeSubscriptionMutationError = AxiosError<void>;
 export const useResumeSubscription = <
   TData = Awaited<ReturnType<typeof resumeSubscription>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<TData, TError, void, TContext>;
   axios?: AxiosRequestConfig;
@@ -743,7 +811,7 @@ export const useResumeSubscription = <
  * @summary Get subscriptions
  */
 export const getSubscriptions = (
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<Subscription>> => {
   return axios.get(`/subscription`, options);
 };
@@ -754,12 +822,10 @@ export const getGetSubscriptionsQueryKey = () => {
 
 export const getGetSubscriptionsQueryOptions = <
   TData = Awaited<ReturnType<typeof getSubscriptions>>,
-  TError = AxiosError<void>,
+  TError = AxiosError<void>
 >(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof getSubscriptions>>,
-    TError,
-    TData
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getSubscriptions>>, TError, TData>
   >;
   axios?: AxiosRequestConfig;
 }) => {
@@ -775,7 +841,7 @@ export const getGetSubscriptionsQueryOptions = <
     Awaited<ReturnType<typeof getSubscriptions>>,
     TError,
     TData
-  > & { queryKey: QueryKey };
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
 export type GetSubscriptionsQueryResult = NonNullable<
@@ -783,25 +849,74 @@ export type GetSubscriptionsQueryResult = NonNullable<
 >;
 export type GetSubscriptionsQueryError = AxiosError<void>;
 
+export function useGetSubscriptions<
+  TData = Awaited<ReturnType<typeof getSubscriptions>>,
+  TError = AxiosError<void>
+>(options: {
+  query: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getSubscriptions>>, TError, TData>
+  > &
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getSubscriptions>>,
+        TError,
+        TData
+      >,
+      "initialData"
+    >;
+  axios?: AxiosRequestConfig;
+}): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetSubscriptions<
+  TData = Awaited<ReturnType<typeof getSubscriptions>>,
+  TError = AxiosError<void>
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getSubscriptions>>, TError, TData>
+  > &
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getSubscriptions>>,
+        TError,
+        TData
+      >,
+      "initialData"
+    >;
+  axios?: AxiosRequestConfig;
+}): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetSubscriptions<
+  TData = Awaited<ReturnType<typeof getSubscriptions>>,
+  TError = AxiosError<void>
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getSubscriptions>>, TError, TData>
+  >;
+  axios?: AxiosRequestConfig;
+}): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 /**
  * @summary Get subscriptions
  */
 
 export function useGetSubscriptions<
   TData = Awaited<ReturnType<typeof getSubscriptions>>,
-  TError = AxiosError<void>,
+  TError = AxiosError<void>
 >(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof getSubscriptions>>,
-    TError,
-    TData
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getSubscriptions>>, TError, TData>
   >;
   axios?: AxiosRequestConfig;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+}): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetSubscriptionsQueryOptions(options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
+    queryKey: DataTag<QueryKey, TData, TError>;
   };
 
   query.queryKey = queryOptions.queryKey;
@@ -814,7 +929,7 @@ export function useGetSubscriptions<
  * @summary List all tags
  */
 export const getTags = (
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<Tag[]>> => {
   return axios.get(`/notes/tags`, options);
 };
@@ -825,9 +940,11 @@ export const getGetTagsQueryKey = () => {
 
 export const getGetTagsQueryOptions = <
   TData = Awaited<ReturnType<typeof getTags>>,
-  TError = AxiosError<unknown>,
+  TError = AxiosError<unknown>
 >(options?: {
-  query?: UseQueryOptions<Awaited<ReturnType<typeof getTags>>, TError, TData>;
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getTags>>, TError, TData>
+  >;
   axios?: AxiosRequestConfig;
 }) => {
   const { query: queryOptions, axios: axiosOptions } = options ?? {};
@@ -842,7 +959,7 @@ export const getGetTagsQueryOptions = <
     Awaited<ReturnType<typeof getTags>>,
     TError,
     TData
-  > & { queryKey: QueryKey };
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
 export type GetTagsQueryResult = NonNullable<
@@ -850,21 +967,74 @@ export type GetTagsQueryResult = NonNullable<
 >;
 export type GetTagsQueryError = AxiosError<unknown>;
 
+export function useGetTags<
+  TData = Awaited<ReturnType<typeof getTags>>,
+  TError = AxiosError<unknown>
+>(options: {
+  query: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getTags>>, TError, TData>
+  > &
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getTags>>,
+        TError,
+        TData
+      >,
+      "initialData"
+    >;
+  axios?: AxiosRequestConfig;
+}): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetTags<
+  TData = Awaited<ReturnType<typeof getTags>>,
+  TError = AxiosError<unknown>
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getTags>>, TError, TData>
+  > &
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getTags>>,
+        TError,
+        TData
+      >,
+      "initialData"
+    >;
+  axios?: AxiosRequestConfig;
+}): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetTags<
+  TData = Awaited<ReturnType<typeof getTags>>,
+  TError = AxiosError<unknown>
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getTags>>, TError, TData>
+  >;
+  axios?: AxiosRequestConfig;
+}): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 /**
  * @summary List all tags
  */
 
 export function useGetTags<
   TData = Awaited<ReturnType<typeof getTags>>,
-  TError = AxiosError<unknown>,
+  TError = AxiosError<unknown>
 >(options?: {
-  query?: UseQueryOptions<Awaited<ReturnType<typeof getTags>>, TError, TData>;
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getTags>>, TError, TData>
+  >;
   axios?: AxiosRequestConfig;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+}): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetTagsQueryOptions(options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
+    queryKey: DataTag<QueryKey, TData, TError>;
   };
 
   query.queryKey = queryOptions.queryKey;
@@ -878,7 +1048,7 @@ export function useGetTags<
  */
 export const createTag = (
   tagBase: TagBase,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<Tag>> => {
   return axios.post(`/notes/tags`, tagBase, options);
 };
@@ -886,15 +1056,15 @@ export const createTag = (
 export const getCreateTagMutationOptions = <
   TData = Awaited<ReturnType<typeof createTag>>,
   TError = AxiosError<unknown>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<TData, TError, { data: TagBase }, TContext>;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['createTag'];
+  const mutationKey = ["createTag"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -929,7 +1099,7 @@ export type CreateTagMutationError = AxiosError<unknown>;
 export const useCreateTag = <
   TData = Awaited<ReturnType<typeof createTag>>,
   TError = AxiosError<unknown>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<TData, TError, { data: TagBase }, TContext>;
   axios?: AxiosRequestConfig;
@@ -946,7 +1116,7 @@ export const useCreateTag = <
 export const updateTag = (
   id: number,
   tagBase: TagBase,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<Tag>> => {
   return axios.put(`/notes/tags/${id}`, tagBase, options);
 };
@@ -954,7 +1124,7 @@ export const updateTag = (
 export const getUpdateTagMutationOptions = <
   TData = Awaited<ReturnType<typeof updateTag>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -964,10 +1134,10 @@ export const getUpdateTagMutationOptions = <
   >;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['updateTag'];
+  const mutationKey = ["updateTag"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -1002,7 +1172,7 @@ export type UpdateTagMutationError = AxiosError<void>;
 export const useUpdateTag = <
   TData = Awaited<ReturnType<typeof updateTag>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -1028,7 +1198,7 @@ export const useUpdateTag = <
  */
 export const getTag = (
   id: number,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<Tag>> => {
   return axios.get(`/notes/tags/${id}`, options);
 };
@@ -1039,13 +1209,15 @@ export const getGetTagQueryKey = (id: number) => {
 
 export const getGetTagQueryOptions = <
   TData = Awaited<ReturnType<typeof getTag>>,
-  TError = AxiosError<void>,
+  TError = AxiosError<void>
 >(
   id: number,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getTag>>, TError, TData>;
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getTag>>, TError, TData>
+    >;
     axios?: AxiosRequestConfig;
-  },
+  }
 ) => {
   const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
@@ -1061,31 +1233,93 @@ export const getGetTagQueryOptions = <
     enabled: !!id,
     ...queryOptions,
   } as UseQueryOptions<Awaited<ReturnType<typeof getTag>>, TError, TData> & {
-    queryKey: QueryKey;
+    queryKey: DataTag<QueryKey, TData, TError>;
   };
 };
 
 export type GetTagQueryResult = NonNullable<Awaited<ReturnType<typeof getTag>>>;
 export type GetTagQueryError = AxiosError<void>;
 
+export function useGetTag<
+  TData = Awaited<ReturnType<typeof getTag>>,
+  TError = AxiosError<void>
+>(
+  id: number,
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getTag>>, TError, TData>
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getTag>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+    axios?: AxiosRequestConfig;
+  }
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetTag<
+  TData = Awaited<ReturnType<typeof getTag>>,
+  TError = AxiosError<void>
+>(
+  id: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getTag>>, TError, TData>
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getTag>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+    axios?: AxiosRequestConfig;
+  }
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetTag<
+  TData = Awaited<ReturnType<typeof getTag>>,
+  TError = AxiosError<void>
+>(
+  id: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getTag>>, TError, TData>
+    >;
+    axios?: AxiosRequestConfig;
+  }
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 /**
  * @summary Get a tag
  */
 
 export function useGetTag<
   TData = Awaited<ReturnType<typeof getTag>>,
-  TError = AxiosError<void>,
+  TError = AxiosError<void>
 >(
   id: number,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getTag>>, TError, TData>;
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getTag>>, TError, TData>
+    >;
     axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  }
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetTagQueryOptions(id, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
+    queryKey: DataTag<QueryKey, TData, TError>;
   };
 
   query.queryKey = queryOptions.queryKey;
@@ -1099,7 +1333,7 @@ export function useGetTag<
  */
 export const deleteTag = (
   id: number,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<void>> => {
   return axios.delete(`/notes/tags/${id}`, options);
 };
@@ -1107,15 +1341,15 @@ export const deleteTag = (
 export const getDeleteTagMutationOptions = <
   TData = Awaited<ReturnType<typeof deleteTag>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<TData, TError, { id: number }, TContext>;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['deleteTag'];
+  const mutationKey = ["deleteTag"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -1150,7 +1384,7 @@ export type DeleteTagMutationError = AxiosError<void>;
 export const useDeleteTag = <
   TData = Awaited<ReturnType<typeof deleteTag>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<TData, TError, { id: number }, TContext>;
   axios?: AxiosRequestConfig;
@@ -1168,7 +1402,7 @@ is cutoff at 100 characters, to make the response smaller.
  */
 export const getNotes = (
   params?: GetNotesParams,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<Note[]>> => {
   return axios.get(`/notes`, {
     ...options,
@@ -1182,17 +1416,15 @@ export const getGetNotesQueryKey = (params?: GetNotesParams) => {
 
 export const getGetNotesQueryOptions = <
   TData = Awaited<ReturnType<typeof getNotes>>,
-  TError = AxiosError<unknown>,
+  TError = AxiosError<unknown>
 >(
   params?: GetNotesParams,
   options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getNotes>>,
-      TError,
-      TData
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getNotes>>, TError, TData>
     >;
     axios?: AxiosRequestConfig;
-  },
+  }
 ) => {
   const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
@@ -1206,7 +1438,7 @@ export const getGetNotesQueryOptions = <
     Awaited<ReturnType<typeof getNotes>>,
     TError,
     TData
-  > & { queryKey: QueryKey };
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
 export type GetNotesQueryResult = NonNullable<
@@ -1214,28 +1446,86 @@ export type GetNotesQueryResult = NonNullable<
 >;
 export type GetNotesQueryError = AxiosError<unknown>;
 
+export function useGetNotes<
+  TData = Awaited<ReturnType<typeof getNotes>>,
+  TError = AxiosError<unknown>
+>(
+  params: undefined | GetNotesParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getNotes>>, TError, TData>
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getNotes>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+    axios?: AxiosRequestConfig;
+  }
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetNotes<
+  TData = Awaited<ReturnType<typeof getNotes>>,
+  TError = AxiosError<unknown>
+>(
+  params?: GetNotesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getNotes>>, TError, TData>
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getNotes>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+    axios?: AxiosRequestConfig;
+  }
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetNotes<
+  TData = Awaited<ReturnType<typeof getNotes>>,
+  TError = AxiosError<unknown>
+>(
+  params?: GetNotesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getNotes>>, TError, TData>
+    >;
+    axios?: AxiosRequestConfig;
+  }
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 /**
  * @summary List all notes
  */
 
 export function useGetNotes<
   TData = Awaited<ReturnType<typeof getNotes>>,
-  TError = AxiosError<unknown>,
+  TError = AxiosError<unknown>
 >(
   params?: GetNotesParams,
   options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getNotes>>,
-      TError,
-      TData
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getNotes>>, TError, TData>
     >;
     axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  }
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetNotesQueryOptions(params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
+    queryKey: DataTag<QueryKey, TData, TError>;
   };
 
   query.queryKey = queryOptions.queryKey;
@@ -1249,7 +1539,7 @@ export function useGetNotes<
  */
 export const createNote = (
   noteEdit: NoteEdit,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<Note>> => {
   return axios.post(`/notes`, noteEdit, options);
 };
@@ -1257,15 +1547,15 @@ export const createNote = (
 export const getCreateNoteMutationOptions = <
   TData = Awaited<ReturnType<typeof createNote>>,
   TError = AxiosError<unknown>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<TData, TError, { data: NoteEdit }, TContext>;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['createNote'];
+  const mutationKey = ["createNote"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -1300,7 +1590,7 @@ export type CreateNoteMutationError = AxiosError<unknown>;
 export const useCreateNote = <
   TData = Awaited<ReturnType<typeof createNote>>,
   TError = AxiosError<unknown>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<TData, TError, { data: NoteEdit }, TContext>;
   axios?: AxiosRequestConfig;
@@ -1316,7 +1606,7 @@ export const useCreateNote = <
  */
 export const getNote = (
   id: number,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<Note>> => {
   return axios.get(`/notes/${id}`, options);
 };
@@ -1327,13 +1617,15 @@ export const getGetNoteQueryKey = (id: number) => {
 
 export const getGetNoteQueryOptions = <
   TData = Awaited<ReturnType<typeof getNote>>,
-  TError = AxiosError<void>,
+  TError = AxiosError<void>
 >(
   id: number,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getNote>>, TError, TData>;
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getNote>>, TError, TData>
+    >;
     axios?: AxiosRequestConfig;
-  },
+  }
 ) => {
   const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
@@ -1349,7 +1641,7 @@ export const getGetNoteQueryOptions = <
     enabled: !!id,
     ...queryOptions,
   } as UseQueryOptions<Awaited<ReturnType<typeof getNote>>, TError, TData> & {
-    queryKey: QueryKey;
+    queryKey: DataTag<QueryKey, TData, TError>;
   };
 };
 
@@ -1358,24 +1650,86 @@ export type GetNoteQueryResult = NonNullable<
 >;
 export type GetNoteQueryError = AxiosError<void>;
 
+export function useGetNote<
+  TData = Awaited<ReturnType<typeof getNote>>,
+  TError = AxiosError<void>
+>(
+  id: number,
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getNote>>, TError, TData>
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getNote>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+    axios?: AxiosRequestConfig;
+  }
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetNote<
+  TData = Awaited<ReturnType<typeof getNote>>,
+  TError = AxiosError<void>
+>(
+  id: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getNote>>, TError, TData>
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getNote>>,
+          TError,
+          TData
+        >,
+        "initialData"
+      >;
+    axios?: AxiosRequestConfig;
+  }
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetNote<
+  TData = Awaited<ReturnType<typeof getNote>>,
+  TError = AxiosError<void>
+>(
+  id: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getNote>>, TError, TData>
+    >;
+    axios?: AxiosRequestConfig;
+  }
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 /**
  * @summary Get a note
  */
 
 export function useGetNote<
   TData = Awaited<ReturnType<typeof getNote>>,
-  TError = AxiosError<void>,
+  TError = AxiosError<void>
 >(
   id: number,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getNote>>, TError, TData>;
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getNote>>, TError, TData>
+    >;
     axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  }
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetNoteQueryOptions(id, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
+    queryKey: DataTag<QueryKey, TData, TError>;
   };
 
   query.queryKey = queryOptions.queryKey;
@@ -1390,7 +1744,7 @@ export function useGetNote<
 export const updateNote = (
   id: number,
   noteEdit: NoteEdit,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<Note>> => {
   return axios.put(`/notes/${id}`, noteEdit, options);
 };
@@ -1398,7 +1752,7 @@ export const updateNote = (
 export const getUpdateNoteMutationOptions = <
   TData = Awaited<ReturnType<typeof updateNote>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -1408,10 +1762,10 @@ export const getUpdateNoteMutationOptions = <
   >;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['updateNote'];
+  const mutationKey = ["updateNote"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -1446,7 +1800,7 @@ export type UpdateNoteMutationError = AxiosError<void>;
 export const useUpdateNote = <
   TData = Awaited<ReturnType<typeof updateNote>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<
     TData,
@@ -1472,7 +1826,7 @@ export const useUpdateNote = <
  */
 export const deleteNote = (
   id: number,
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<void>> => {
   return axios.delete(`/notes/${id}`, options);
 };
@@ -1480,15 +1834,15 @@ export const deleteNote = (
 export const getDeleteNoteMutationOptions = <
   TData = Awaited<ReturnType<typeof deleteNote>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<TData, TError, { id: number }, TContext>;
   axios?: AxiosRequestConfig;
 }) => {
-  const mutationKey = ['deleteNote'];
+  const mutationKey = ["deleteNote"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation &&
-      'mutationKey' in options.mutation &&
+      "mutationKey" in options.mutation &&
       options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
@@ -1523,7 +1877,7 @@ export type DeleteNoteMutationError = AxiosError<void>;
 export const useDeleteNote = <
   TData = Awaited<ReturnType<typeof deleteNote>>,
   TError = AxiosError<void>,
-  TContext = unknown,
+  TContext = unknown
 >(options?: {
   mutation?: UseMutationOptions<TData, TError, { id: number }, TContext>;
   axios?: AxiosRequestConfig;
@@ -1538,7 +1892,7 @@ export const useDeleteNote = <
  * @summary Get referral info
  */
 export const getReferralInfo = (
-  options?: AxiosRequestConfig,
+  options?: AxiosRequestConfig
 ): Promise<AxiosResponse<Referral>> => {
   return axios.get(`/referrals`, options);
 };
@@ -1549,12 +1903,10 @@ export const getGetReferralInfoQueryKey = () => {
 
 export const getGetReferralInfoQueryOptions = <
   TData = Awaited<ReturnType<typeof getReferralInfo>>,
-  TError = AxiosError<unknown>,
+  TError = AxiosError<unknown>
 >(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof getReferralInfo>>,
-    TError,
-    TData
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getReferralInfo>>, TError, TData>
   >;
   axios?: AxiosRequestConfig;
 }) => {
@@ -1570,7 +1922,7 @@ export const getGetReferralInfoQueryOptions = <
     Awaited<ReturnType<typeof getReferralInfo>>,
     TError,
     TData
-  > & { queryKey: QueryKey };
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
 export type GetReferralInfoQueryResult = NonNullable<
@@ -1578,25 +1930,74 @@ export type GetReferralInfoQueryResult = NonNullable<
 >;
 export type GetReferralInfoQueryError = AxiosError<unknown>;
 
+export function useGetReferralInfo<
+  TData = Awaited<ReturnType<typeof getReferralInfo>>,
+  TError = AxiosError<unknown>
+>(options: {
+  query: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getReferralInfo>>, TError, TData>
+  > &
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getReferralInfo>>,
+        TError,
+        TData
+      >,
+      "initialData"
+    >;
+  axios?: AxiosRequestConfig;
+}): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetReferralInfo<
+  TData = Awaited<ReturnType<typeof getReferralInfo>>,
+  TError = AxiosError<unknown>
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getReferralInfo>>, TError, TData>
+  > &
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof getReferralInfo>>,
+        TError,
+        TData
+      >,
+      "initialData"
+    >;
+  axios?: AxiosRequestConfig;
+}): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetReferralInfo<
+  TData = Awaited<ReturnType<typeof getReferralInfo>>,
+  TError = AxiosError<unknown>
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getReferralInfo>>, TError, TData>
+  >;
+  axios?: AxiosRequestConfig;
+}): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 /**
  * @summary Get referral info
  */
 
 export function useGetReferralInfo<
   TData = Awaited<ReturnType<typeof getReferralInfo>>,
-  TError = AxiosError<unknown>,
+  TError = AxiosError<unknown>
 >(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof getReferralInfo>>,
-    TError,
-    TData
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof getReferralInfo>>, TError, TData>
   >;
   axios?: AxiosRequestConfig;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+}): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetReferralInfoQueryOptions(options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
+    queryKey: DataTag<QueryKey, TData, TError>;
   };
 
   query.queryKey = queryOptions.queryKey;

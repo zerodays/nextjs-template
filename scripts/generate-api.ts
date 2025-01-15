@@ -6,6 +6,6 @@ const API_BASE_URL =
 
 const SCHEMA_NAME = "/docs/bundle.yml";
 
-orval("orval.config.ts", "", {
+orval("orval.config.ts", "nextjs-template", {
   input: API_BASE_URL + SCHEMA_NAME,
 });

@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ChatMessageRole =
-  (typeof ChatMessageRole)[keyof typeof ChatMessageRole];
+export type ChatMessageRole = typeof ChatMessageRole[keyof typeof ChatMessageRole];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ChatMessageRole = {

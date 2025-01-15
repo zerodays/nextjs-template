@@ -9,6 +9,6 @@
 export interface Referral {
   referral_code: string;
   /** Number of users reffered by the current user.
-   */
+ */
   nr_referrals: number;
 }

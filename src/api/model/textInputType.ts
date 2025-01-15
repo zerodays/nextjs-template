@@ -6,7 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type TextInputType = (typeof TextInputType)[keyof typeof TextInputType];
+export type TextInputType = typeof TextInputType[keyof typeof TextInputType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const TextInputType = {

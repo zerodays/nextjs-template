@@ -8,6 +8,6 @@
 
 export type PauseSubscriptionBody = {
   /** The date and time when the subscription will be resumed.
-   */
+ */
   resumes_at: string;
 };

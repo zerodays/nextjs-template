@@ -5,9 +5,17 @@
  * ClasssMate backend
  * OpenAPI spec version: 1.0
  */
-import { faker } from '@faker-js/faker';
-import { http, HttpResponse, delay } from 'msw';
-import { ChatMessageRole } from './model';
+import {
+  faker
+} from '@faker-js/faker'
+import {
+  HttpResponse,
+  delay,
+  http
+} from 'msw'
+import {
+  ChatMessageRole
+} from './model'
 import type {
   AutosolveResponse,
   Chat,
@@ -17,686 +25,285 @@ import type {
   Note,
   Referral,
   Subscription,
-  Tag,
-} from './model';
+  Tag
+} from './model'
 
-export const getCreateChatResponseMock = (
-  overrideResponse: Partial<Chat> = {},
-): Chat => ({
-  id: faker.string.alpha(20),
-  user_id: faker.string.alpha(20),
-  messages: Array.from(
-    { length: faker.number.int({ min: 1, max: 10 }) },
-    (_, i) => i + 1,
-  ).map(() => ({
-    visible: faker.datatype.boolean(),
-    content: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),
-    image_path: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),
-    base64_image: faker.helpers.arrayElement([
-      faker.string.alpha(20),
-      undefined,
-    ]),
-    role: faker.helpers.arrayElement(Object.values(ChatMessageRole)),
-    created_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  })),
-  created_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  ...overrideResponse,
-});
+export const getCreateChatResponseMock = (overrideResponse: Partial< Chat > = {}): Chat => ({id: faker.string.alpha(20), user_id: faker.string.alpha(20), messages: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({visible: faker.datatype.boolean(), content: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), image_path: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), base64_image: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),role: faker.helpers.arrayElement(Object.values(ChatMessageRole)), created_at: `${faker.date.past().toISOString().split('.')[0]}Z`})), created_at: `${faker.date.past().toISOString().split('.')[0]}Z`, ...overrideResponse})
 
-export const getGetChatResponseMock = (
-  overrideResponse: Partial<Chat> = {},
-): Chat => ({
-  id: faker.string.alpha(20),
-  user_id: faker.string.alpha(20),
-  messages: Array.from(
-    { length: faker.number.int({ min: 1, max: 10 }) },
-    (_, i) => i + 1,
-  ).map(() => ({
-    visible: faker.datatype.boolean(),
-    content: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),
-    image_path: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),
-    base64_image: faker.helpers.arrayElement([
-      faker.string.alpha(20),
-      undefined,
-    ]),
-    role: faker.helpers.arrayElement(Object.values(ChatMessageRole)),
-    created_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  })),
-  created_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  ...overrideResponse,
-});
+export const getGetChatResponseMock = (overrideResponse: Partial< Chat > = {}): Chat => ({id: faker.string.alpha(20), user_id: faker.string.alpha(20), messages: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({visible: faker.datatype.boolean(), content: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), image_path: faker.helpers.arrayElement([faker.string.alpha(20), undefined]), base64_image: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),role: faker.helpers.arrayElement(Object.values(ChatMessageRole)), created_at: `${faker.date.past().toISOString().split('.')[0]}Z`})), created_at: `${faker.date.past().toISOString().split('.')[0]}Z`, ...overrideResponse})
 
-export const getSendMessageResponseMock = (): string => faker.word.sample();
+export const getSendMessageResponseMock = (): string => (faker.word.sample())
 
-export const getCreateAutosolveChatResponseMock = (
-  overrideResponse: Partial<CreateAutosolveChat200> = {},
-): CreateAutosolveChat200 => ({
-  id: faker.string.alpha(20),
-  ...overrideResponse,
-});
+export const getCreateAutosolveChatResponseMock = (overrideResponse: Partial< CreateAutosolveChat200 > = {}): CreateAutosolveChat200 => ({id: faker.string.alpha(20), ...overrideResponse})
 
-export const getAutosolveResponseMock = (
-  overrideResponse: Partial<AutosolveResponse> = {},
-): AutosolveResponse => ({
-  answers: Array.from(
-    { length: faker.number.int({ min: 1, max: 10 }) },
-    (_, i) => i + 1,
-  ).map(() => ({
-    id: faker.string.alpha(20),
-    value: faker.helpers.arrayElement([
-      faker.string.alpha(20),
-      faker.number.int({ min: undefined, max: undefined }),
-      Array.from(
-        { length: faker.number.int({ min: 1, max: 10 }) },
-        (_, i) => i + 1,
-      ).map(() => faker.string.alpha(20)),
-    ]),
-  })),
-  ...overrideResponse,
-});
+export const getAutosolveResponseMock = (overrideResponse: Partial< AutosolveResponse > = {}): AutosolveResponse => ({answers: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.string.alpha(20), value: faker.helpers.arrayElement([faker.string.alpha(20),faker.number.int({min: undefined, max: undefined}),Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => (faker.string.alpha(20)))])})), ...overrideResponse})
 
-export const getCreateSubscriptionResponseMock = (
-  overrideResponse: Partial<CreateSubscription200> = {},
-): CreateSubscription200 => ({
-  redirect_url: faker.string.alpha(20),
-  ...overrideResponse,
-});
+export const getCreateSubscriptionResponseMock = (overrideResponse: Partial< CreateSubscription200 > = {}): CreateSubscription200 => ({redirect_url: faker.string.alpha(20), ...overrideResponse})
 
-export const getManageSubscriptionResponseMock = (
-  overrideResponse: Partial<ManageSubscription200> = {},
-): ManageSubscription200 => ({
-  redirect_url: faker.string.alpha(20),
-  ...overrideResponse,
-});
+export const getManageSubscriptionResponseMock = (overrideResponse: Partial< ManageSubscription200 > = {}): ManageSubscription200 => ({redirect_url: faker.string.alpha(20), ...overrideResponse})
 
-export const getGetSubscriptionsResponseMock = (
-  overrideResponse: Partial<Subscription> = {},
-): Subscription => ({
-  status: faker.helpers.arrayElement([
-    'incomplete',
-    'incomplete_expired',
-    'trialing',
-    'active',
-    'past_due',
-    'canceled',
-    'unpaid',
-    'paused',
-  ] as const),
-  price_id: faker.helpers.arrayElement([faker.string.alpha(20), null]),
-  current_period_start: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  current_period_end: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  cancel_at_period_end: faker.datatype.boolean(),
-  is_payment_collection_paused: faker.datatype.boolean(),
-  payment_collection_paused_until: faker.helpers.arrayElement([
-    `${faker.date.past().toISOString().split('.')[0]}Z`,
-    null,
-  ]),
-  created_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  ...overrideResponse,
-});
+export const getGetSubscriptionsResponseMock = (overrideResponse: Partial< Subscription > = {}): Subscription => ({status: faker.helpers.arrayElement(['incomplete','incomplete_expired','trialing','active','past_due','canceled','unpaid','paused'] as const), price_id: faker.helpers.arrayElement([faker.string.alpha(20), null]), current_period_start: `${faker.date.past().toISOString().split('.')[0]}Z`, current_period_end: `${faker.date.past().toISOString().split('.')[0]}Z`, cancel_at_period_end: faker.datatype.boolean(), is_payment_collection_paused: faker.datatype.boolean(), payment_collection_paused_until: faker.helpers.arrayElement([`${faker.date.past().toISOString().split('.')[0]}Z`, null]), created_at: `${faker.date.past().toISOString().split('.')[0]}Z`, updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`, ...overrideResponse})
 
-export const getGetTagsResponseMock = (): Tag[] =>
-  Array.from(
-    { length: faker.number.int({ min: 1, max: 10 }) },
-    (_, i) => i + 1,
-  ).map(() => ({
-    name: faker.string.alpha(20),
-    icon_name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),
-    id: faker.number.int({ min: undefined, max: undefined }),
-    notes_count: faker.number.int({ min: undefined, max: undefined }),
-    created_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-    updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  }));
+export const getGetTagsResponseMock = (): Tag[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({name: faker.string.alpha(20), icon_name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),id: faker.number.int({min: undefined, max: undefined}), notes_count: faker.number.int({min: undefined, max: undefined}), created_at: `${faker.date.past().toISOString().split('.')[0]}Z`, updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`})))
 
-export const getCreateTagResponseMock = (): Tag => ({
-  name: faker.string.alpha(20),
-  icon_name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),
-  id: faker.number.int({ min: undefined, max: undefined }),
-  notes_count: faker.number.int({ min: undefined, max: undefined }),
-  created_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-});
+export const getCreateTagResponseMock = (): Tag => ({name: faker.string.alpha(20), icon_name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),id: faker.number.int({min: undefined, max: undefined}), notes_count: faker.number.int({min: undefined, max: undefined}), created_at: `${faker.date.past().toISOString().split('.')[0]}Z`, updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`})
 
-export const getUpdateTagResponseMock = (): Tag => ({
-  name: faker.string.alpha(20),
-  icon_name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),
-  id: faker.number.int({ min: undefined, max: undefined }),
-  notes_count: faker.number.int({ min: undefined, max: undefined }),
-  created_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-});
+export const getUpdateTagResponseMock = (): Tag => ({name: faker.string.alpha(20), icon_name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),id: faker.number.int({min: undefined, max: undefined}), notes_count: faker.number.int({min: undefined, max: undefined}), created_at: `${faker.date.past().toISOString().split('.')[0]}Z`, updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`})
 
-export const getGetTagResponseMock = (): Tag => ({
-  name: faker.string.alpha(20),
-  icon_name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),
-  id: faker.number.int({ min: undefined, max: undefined }),
-  notes_count: faker.number.int({ min: undefined, max: undefined }),
-  created_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-});
+export const getGetTagResponseMock = (): Tag => ({name: faker.string.alpha(20), icon_name: faker.helpers.arrayElement([faker.string.alpha(20), undefined]),id: faker.number.int({min: undefined, max: undefined}), notes_count: faker.number.int({min: undefined, max: undefined}), created_at: `${faker.date.past().toISOString().split('.')[0]}Z`, updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`})
 
-export const getGetNotesResponseMock = (): Note[] =>
-  Array.from(
-    { length: faker.number.int({ min: 1, max: 10 }) },
-    (_, i) => i + 1,
-  ).map(() => ({
-    id: faker.number.int({ min: undefined, max: undefined }),
-    user_id: faker.string.alpha(20),
-    name: faker.string.alpha(20),
-    content: faker.string.alpha(20),
-    tag_id: faker.helpers.arrayElement([
-      faker.number.int({ min: undefined, max: undefined }),
-      undefined,
-    ]),
-    created_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-    updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  }));
+export const getGetNotesResponseMock = (): Note[] => (Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({id: faker.number.int({min: undefined, max: undefined}), user_id: faker.string.alpha(20), name: faker.string.alpha(20), content: faker.string.alpha(20), tag_id: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), created_at: `${faker.date.past().toISOString().split('.')[0]}Z`, updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`})))
 
-export const getCreateNoteResponseMock = (
-  overrideResponse: Partial<Note> = {},
-): Note => ({
-  id: faker.number.int({ min: undefined, max: undefined }),
-  user_id: faker.string.alpha(20),
-  name: faker.string.alpha(20),
-  content: faker.string.alpha(20),
-  tag_id: faker.helpers.arrayElement([
-    faker.number.int({ min: undefined, max: undefined }),
-    undefined,
-  ]),
-  created_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  ...overrideResponse,
-});
+export const getCreateNoteResponseMock = (overrideResponse: Partial< Note > = {}): Note => ({id: faker.number.int({min: undefined, max: undefined}), user_id: faker.string.alpha(20), name: faker.string.alpha(20), content: faker.string.alpha(20), tag_id: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), created_at: `${faker.date.past().toISOString().split('.')[0]}Z`, updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`, ...overrideResponse})
 
-export const getGetNoteResponseMock = (
-  overrideResponse: Partial<Note> = {},
-): Note => ({
-  id: faker.number.int({ min: undefined, max: undefined }),
-  user_id: faker.string.alpha(20),
-  name: faker.string.alpha(20),
-  content: faker.string.alpha(20),
-  tag_id: faker.helpers.arrayElement([
-    faker.number.int({ min: undefined, max: undefined }),
-    undefined,
-  ]),
-  created_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  ...overrideResponse,
-});
+export const getGetNoteResponseMock = (overrideResponse: Partial< Note > = {}): Note => ({id: faker.number.int({min: undefined, max: undefined}), user_id: faker.string.alpha(20), name: faker.string.alpha(20), content: faker.string.alpha(20), tag_id: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), created_at: `${faker.date.past().toISOString().split('.')[0]}Z`, updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`, ...overrideResponse})
 
-export const getUpdateNoteResponseMock = (
-  overrideResponse: Partial<Note> = {},
-): Note => ({
-  id: faker.number.int({ min: undefined, max: undefined }),
-  user_id: faker.string.alpha(20),
-  name: faker.string.alpha(20),
-  content: faker.string.alpha(20),
-  tag_id: faker.helpers.arrayElement([
-    faker.number.int({ min: undefined, max: undefined }),
-    undefined,
-  ]),
-  created_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`,
-  ...overrideResponse,
-});
+export const getUpdateNoteResponseMock = (overrideResponse: Partial< Note > = {}): Note => ({id: faker.number.int({min: undefined, max: undefined}), user_id: faker.string.alpha(20), name: faker.string.alpha(20), content: faker.string.alpha(20), tag_id: faker.helpers.arrayElement([faker.number.int({min: undefined, max: undefined}), undefined]), created_at: `${faker.date.past().toISOString().split('.')[0]}Z`, updated_at: `${faker.date.past().toISOString().split('.')[0]}Z`, ...overrideResponse})
 
-export const getGetReferralInfoResponseMock = (
-  overrideResponse: Partial<Referral> = {},
-): Referral => ({
-  referral_code: faker.string.alpha(20),
-  nr_referrals: faker.number.int({ min: undefined, max: undefined }),
-  ...overrideResponse,
-});
+export const getGetReferralInfoResponseMock = (overrideResponse: Partial< Referral > = {}): Referral => ({referral_code: faker.string.alpha(20), nr_referrals: faker.number.int({min: undefined, max: undefined}), ...overrideResponse})
 
-export const getCreateChatMockHandler = (
-  overrideResponse?:
-    | Chat
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<Chat> | Chat),
-) => {
-  return http.post('*/chats', async (info) => {
-    await delay(1000);
 
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getCreateChatResponseMock(),
-      ),
-      { status: 201, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
+export const getCreateChatMockHandler = (overrideResponse?: Chat | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<Chat> | Chat)) => {
+  return http.post('*/chats', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getCreateChatResponseMock()),
+      { status: 201,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-export const getGetChatMockHandler = (
-  overrideResponse?:
-    | Chat
-    | ((
-        info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<Chat> | Chat),
-) => {
-  return http.get('*/chats/:chatId', async (info) => {
-    await delay(1000);
+export const getGetChatMockHandler = (overrideResponse?: Chat | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<Chat> | Chat)) => {
+  return http.get('*/chats/:chatId', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetChatResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getGetChatResponseMock(),
-      ),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
+export const getSendMessageMockHandler = (overrideResponse?: string | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<string> | string)) => {
+  return http.put('*/chats/:chatId', async (info) => {await delay(1000);
+  
+    return new HttpResponse(getSendMessageResponseMock(),
+      { status: 200,
+        headers: { 'Content-Type': 'text/plain' }
+      })
+  })
+}
 
-export const getSendMessageMockHandler = (
-  overrideResponse?:
-    | string
-    | ((
-        info: Parameters<Parameters<typeof http.put>[1]>[0],
-      ) => Promise<string> | string),
-) => {
-  return http.put('*/chats/:chatId', async (info) => {
-    await delay(1000);
+export const getCreateAutosolveChatMockHandler = (overrideResponse?: CreateAutosolveChat200 | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<CreateAutosolveChat200> | CreateAutosolveChat200)) => {
+  return http.post('*/chats/autosolve', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getCreateAutosolveChatResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-    return new HttpResponse(getSendMessageResponseMock(), {
-      status: 200,
-      headers: { 'Content-Type': 'text/plain' },
-    });
-  });
-};
+export const getAutosolveMockHandler = (overrideResponse?: AutosolveResponse | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<AutosolveResponse> | AutosolveResponse)) => {
+  return http.post('*/autosolve', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getAutosolveResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-export const getCreateAutosolveChatMockHandler = (
-  overrideResponse?:
-    | CreateAutosolveChat200
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<CreateAutosolveChat200> | CreateAutosolveChat200),
-) => {
-  return http.post('*/chats/autosolve', async (info) => {
-    await delay(1000);
+export const getCreateSubscriptionMockHandler = (overrideResponse?: CreateSubscription200 | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<CreateSubscription200> | CreateSubscription200)) => {
+  return http.post('*/subscription/new', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getCreateSubscriptionResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getCreateAutosolveChatResponseMock(),
-      ),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
+export const getManageSubscriptionMockHandler = (overrideResponse?: ManageSubscription200 | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<ManageSubscription200> | ManageSubscription200)) => {
+  return http.post('*/subscription/manage', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getManageSubscriptionResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-export const getAutosolveMockHandler = (
-  overrideResponse?:
-    | AutosolveResponse
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<AutosolveResponse> | AutosolveResponse),
-) => {
-  return http.post('*/autosolve', async (info) => {
-    await delay(1000);
+export const getPauseSubscriptionMockHandler = (overrideResponse?: void | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<void> | void)) => {
+  return http.post('*/subscription/pause', async (info) => {await delay(1000);
+  if (typeof overrideResponse === 'function') {await overrideResponse(info); }
+    return new HttpResponse(null,
+      { status: 204,
+        
+      })
+  })
+}
 
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getAutosolveResponseMock(),
-      ),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
+export const getResumeSubscriptionMockHandler = (overrideResponse?: void | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<void> | void)) => {
+  return http.post('*/subscription/resume', async (info) => {await delay(1000);
+  if (typeof overrideResponse === 'function') {await overrideResponse(info); }
+    return new HttpResponse(null,
+      { status: 204,
+        
+      })
+  })
+}
 
-export const getCreateSubscriptionMockHandler = (
-  overrideResponse?:
-    | CreateSubscription200
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<CreateSubscription200> | CreateSubscription200),
-) => {
-  return http.post('*/subscription/new', async (info) => {
-    await delay(1000);
+export const getGetSubscriptionsMockHandler = (overrideResponse?: Subscription | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<Subscription> | Subscription)) => {
+  return http.get('*/subscription', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetSubscriptionsResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getCreateSubscriptionResponseMock(),
-      ),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
+export const getGetTagsMockHandler = (overrideResponse?: Tag[] | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<Tag[]> | Tag[])) => {
+  return http.get('*/notes/tags', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetTagsResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-export const getManageSubscriptionMockHandler = (
-  overrideResponse?:
-    | ManageSubscription200
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<ManageSubscription200> | ManageSubscription200),
-) => {
-  return http.post('*/subscription/manage', async (info) => {
-    await delay(1000);
+export const getCreateTagMockHandler = (overrideResponse?: Tag | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<Tag> | Tag)) => {
+  return http.post('*/notes/tags', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getCreateTagResponseMock()),
+      { status: 201,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getManageSubscriptionResponseMock(),
-      ),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
+export const getUpdateTagMockHandler = (overrideResponse?: Tag | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<Tag> | Tag)) => {
+  return http.put('*/notes/tags/:id', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getUpdateTagResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-export const getPauseSubscriptionMockHandler = (
-  overrideResponse?:
-    | void
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<void> | void),
-) => {
-  return http.post('*/subscription/pause', async (info) => {
-    await delay(1000);
-    if (typeof overrideResponse === 'function') {
-      await overrideResponse(info);
-    }
-    return new HttpResponse(null, { status: 204 });
-  });
-};
+export const getGetTagMockHandler = (overrideResponse?: Tag | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<Tag> | Tag)) => {
+  return http.get('*/notes/tags/:id', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetTagResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-export const getResumeSubscriptionMockHandler = (
-  overrideResponse?:
-    | void
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<void> | void),
-) => {
-  return http.post('*/subscription/resume', async (info) => {
-    await delay(1000);
-    if (typeof overrideResponse === 'function') {
-      await overrideResponse(info);
-    }
-    return new HttpResponse(null, { status: 204 });
-  });
-};
+export const getDeleteTagMockHandler = (overrideResponse?: void | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<void> | void)) => {
+  return http.delete('*/notes/tags/:id', async (info) => {await delay(1000);
+  if (typeof overrideResponse === 'function') {await overrideResponse(info); }
+    return new HttpResponse(null,
+      { status: 204,
+        
+      })
+  })
+}
 
-export const getGetSubscriptionsMockHandler = (
-  overrideResponse?:
-    | Subscription
-    | ((
-        info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<Subscription> | Subscription),
-) => {
-  return http.get('*/subscription', async (info) => {
-    await delay(1000);
+export const getGetNotesMockHandler = (overrideResponse?: Note[] | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<Note[]> | Note[])) => {
+  return http.get('*/notes', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetNotesResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getGetSubscriptionsResponseMock(),
-      ),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
+export const getCreateNoteMockHandler = (overrideResponse?: Note | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<Note> | Note)) => {
+  return http.post('*/notes', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getCreateNoteResponseMock()),
+      { status: 201,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-export const getGetTagsMockHandler = (
-  overrideResponse?:
-    | Tag[]
-    | ((
-        info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<Tag[]> | Tag[]),
-) => {
-  return http.get('*/notes/tags', async (info) => {
-    await delay(1000);
+export const getGetNoteMockHandler = (overrideResponse?: Note | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<Note> | Note)) => {
+  return http.get('*/notes/:id', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetNoteResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getGetTagsResponseMock(),
-      ),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
+export const getUpdateNoteMockHandler = (overrideResponse?: Note | ((info: Parameters<Parameters<typeof http.put>[1]>[0]) => Promise<Note> | Note)) => {
+  return http.put('*/notes/:id', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getUpdateNoteResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 
-export const getCreateTagMockHandler = (
-  overrideResponse?:
-    | Tag
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<Tag> | Tag),
-) => {
-  return http.post('*/notes/tags', async (info) => {
-    await delay(1000);
+export const getDeleteNoteMockHandler = (overrideResponse?: void | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<void> | void)) => {
+  return http.delete('*/notes/:id', async (info) => {await delay(1000);
+  if (typeof overrideResponse === 'function') {await overrideResponse(info); }
+    return new HttpResponse(null,
+      { status: 204,
+        
+      })
+  })
+}
 
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getCreateTagResponseMock(),
-      ),
-      { status: 201, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
-
-export const getUpdateTagMockHandler = (
-  overrideResponse?:
-    | Tag
-    | ((
-        info: Parameters<Parameters<typeof http.put>[1]>[0],
-      ) => Promise<Tag> | Tag),
-) => {
-  return http.put('*/notes/tags/:id', async (info) => {
-    await delay(1000);
-
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getUpdateTagResponseMock(),
-      ),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
-
-export const getGetTagMockHandler = (
-  overrideResponse?:
-    | Tag
-    | ((
-        info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<Tag> | Tag),
-) => {
-  return http.get('*/notes/tags/:id', async (info) => {
-    await delay(1000);
-
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getGetTagResponseMock(),
-      ),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
-
-export const getDeleteTagMockHandler = (
-  overrideResponse?:
-    | void
-    | ((
-        info: Parameters<Parameters<typeof http.delete>[1]>[0],
-      ) => Promise<void> | void),
-) => {
-  return http.delete('*/notes/tags/:id', async (info) => {
-    await delay(1000);
-    if (typeof overrideResponse === 'function') {
-      await overrideResponse(info);
-    }
-    return new HttpResponse(null, { status: 204 });
-  });
-};
-
-export const getGetNotesMockHandler = (
-  overrideResponse?:
-    | Note[]
-    | ((
-        info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<Note[]> | Note[]),
-) => {
-  return http.get('*/notes', async (info) => {
-    await delay(1000);
-
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getGetNotesResponseMock(),
-      ),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
-
-export const getCreateNoteMockHandler = (
-  overrideResponse?:
-    | Note
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<Note> | Note),
-) => {
-  return http.post('*/notes', async (info) => {
-    await delay(1000);
-
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getCreateNoteResponseMock(),
-      ),
-      { status: 201, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
-
-export const getGetNoteMockHandler = (
-  overrideResponse?:
-    | Note
-    | ((
-        info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<Note> | Note),
-) => {
-  return http.get('*/notes/:id', async (info) => {
-    await delay(1000);
-
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getGetNoteResponseMock(),
-      ),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
-
-export const getUpdateNoteMockHandler = (
-  overrideResponse?:
-    | Note
-    | ((
-        info: Parameters<Parameters<typeof http.put>[1]>[0],
-      ) => Promise<Note> | Note),
-) => {
-  return http.put('*/notes/:id', async (info) => {
-    await delay(1000);
-
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getUpdateNoteResponseMock(),
-      ),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
-
-export const getDeleteNoteMockHandler = (
-  overrideResponse?:
-    | void
-    | ((
-        info: Parameters<Parameters<typeof http.delete>[1]>[0],
-      ) => Promise<void> | void),
-) => {
-  return http.delete('*/notes/:id', async (info) => {
-    await delay(1000);
-    if (typeof overrideResponse === 'function') {
-      await overrideResponse(info);
-    }
-    return new HttpResponse(null, { status: 204 });
-  });
-};
-
-export const getGetReferralInfoMockHandler = (
-  overrideResponse?:
-    | Referral
-    | ((
-        info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<Referral> | Referral),
-) => {
-  return http.get('*/referrals', async (info) => {
-    await delay(1000);
-
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === 'function'
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getGetReferralInfoResponseMock(),
-      ),
-      { status: 200, headers: { 'Content-Type': 'application/json' } },
-    );
-  });
-};
+export const getGetReferralInfoMockHandler = (overrideResponse?: Referral | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<Referral> | Referral)) => {
+  return http.get('*/referrals', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined 
+            ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse) 
+            : getGetReferralInfoResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 export const getClassMateBackendMock = () => [
   getCreateChatMockHandler(),
   getGetChatMockHandler(),
@@ -718,5 +325,5 @@ export const getClassMateBackendMock = () => [
   getGetNoteMockHandler(),
   getUpdateNoteMockHandler(),
   getDeleteNoteMockHandler(),
-  getGetReferralInfoMockHandler(),
-];
+  getGetReferralInfoMockHandler()
+]

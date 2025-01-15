@@ -8,6 +8,6 @@
 
 export type CreateSubscription200 = {
   /** The URL to redirect the user to, in order to complete the payment process.
-   */
+ */
   redirect_url: string;
 };

@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type TextInputFormat =
-  (typeof TextInputFormat)[keyof typeof TextInputFormat];
+export type TextInputFormat = typeof TextInputFormat[keyof typeof TextInputFormat];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const TextInputFormat = {

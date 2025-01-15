@@ -9,22 +9,22 @@ import type { LimitParameter } from './limitParameter';
 import type { OffsetParameter } from './offsetParameter';
 
 export type GetNotesParams = {
-  /**
+/**
  * Maximum number of results to return. Defaults to 20.
 
  */
-  limit?: LimitParameter;
-  /**
+limit?: LimitParameter;
+/**
  * Offset for pagination. Defaults to 0.
 
  */
-  offset?: OffsetParameter;
-  /**
-   * Filter notes by tag id
-   */
-  tag_id?: number;
-  /**
-   * Filter notes by name
-   */
-  query?: string;
+offset?: OffsetParameter;
+/**
+ * Filter notes by tag id
+ */
+tag_id?: number;
+/**
+ * Filter notes by name
+ */
+query?: string;
 };

@@ -7,8 +7,8 @@
  */
 
 export type CreateChatParams = {
-  /**
-   * Id of notes tag that should be included in chat context.
-   */
-  noteTagId?: number;
+/**
+ * Id of notes tag that should be included in chat context.
+ */
+noteTagId?: number;
 };

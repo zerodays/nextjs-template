@@ -6,7 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type SelectType = (typeof SelectType)[keyof typeof SelectType];
+export type SelectType = typeof SelectType[keyof typeof SelectType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SelectType = {
