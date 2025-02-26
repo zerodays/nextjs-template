@@ -9,6 +9,7 @@ import {
   SentryExample,
   ToastExample,
 } from '@/components/examples';
+import ApiExample from '@/components/examples/api-example';
 import ExampleCard from '@/components/examples/example-card';
 import { BackgroundBeams } from '@/components/ui/background-beams';
 import { getScopedI18n } from '@/i18n/server';
@@ -79,6 +80,17 @@ export default async function Home() {
                 </p>
               }>
               <ToastExample />
+            </ExampleCard>
+            <ExampleCard
+              title="📞 API call example"
+              subtitle={
+                <p>
+                  Check out{' '}
+                  <CodeLink filePath="/src/components/examples/api-example.tsx" />{' '}
+                  to see how its made
+                </p>
+              }>
+              <ApiExample />
             </ExampleCard>
           </div>
         </div>
