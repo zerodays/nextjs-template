@@ -10,4 +10,9 @@ export default {
     submit: 'Submit',
     formSubmitted: 'Form submitted',
   },
+  apiExample: {
+    toastTitle: 'Random cat fact',
+    toastError: 'Failed to fetch a random fact!',
+    submit: 'Call API',
+  },
 } as const;

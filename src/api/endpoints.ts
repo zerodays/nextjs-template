@@ -44,7 +44,7 @@ export const getBreeds = (
     
     
     return axios.get(
-      `/breeds`,{
+      `https://catfact.ninja/breeds`,{
     ...options,
         params: {...params, ...options?.params},}
     );
@@ -52,7 +52,7 @@ export const getBreeds = (
 
 
 export const getGetBreedsQueryKey = (params?: GetBreedsParams,) => {
-    return [`/breeds`, ...(params ? [params]: [])] as const;
+    return [`https://catfact.ninja/breeds`, ...(params ? [params]: [])] as const;
     }
 
     
@@ -133,7 +133,7 @@ export const getRandomFact = (
     
     
     return axios.get(
-      `/fact`,{
+      `https://catfact.ninja/fact`,{
     ...options,
         params: {...params, ...options?.params},}
     );
@@ -141,7 +141,7 @@ export const getRandomFact = (
 
 
 export const getGetRandomFactQueryKey = (params?: GetRandomFactParams,) => {
-    return [`/fact`, ...(params ? [params]: [])] as const;
+    return [`https://catfact.ninja/fact`, ...(params ? [params]: [])] as const;
     }
 
     
@@ -222,7 +222,7 @@ export const getFacts = (
     
     
     return axios.get(
-      `/facts`,{
+      `https://catfact.ninja/facts`,{
     ...options,
         params: {...params, ...options?.params},}
     );
@@ -230,7 +230,7 @@ export const getFacts = (
 
 
 export const getGetFactsQueryKey = (params?: GetFactsParams,) => {
-    return [`/facts`, ...(params ? [params]: [])] as const;
+    return [`https://catfact.ninja/facts`, ...(params ? [params]: [])] as const;
     }
 
     

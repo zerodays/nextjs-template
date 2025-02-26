@@ -10,6 +10,7 @@ export default defineConfig({
       clean: true,
       mock: true,
       biome: true,
+      baseUrl: 'https://catfact.ninja',
     },
     input: {
       // This will get overridden by /scripts/generate-api.ts
