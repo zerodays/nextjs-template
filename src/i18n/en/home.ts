@@ -13,7 +13,6 @@ export default {
   apiExample: {
     toastTitle: 'Random cat fact',
     toastError: 'Failed to fetch a random fact!',
-    fetchError: 'An error occurred while fetching the fact',
     submit: 'Call API',
   },
 } as const;

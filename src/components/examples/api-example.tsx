@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-literals */
 'use client';
 
 import { useGetRandomFact } from '@/api/endpoints';
@@ -15,19 +14,14 @@ const ApiExample = () => {
   });
 
   const handleFetch = async () => {
-    try {
-      const res = await refetch();
+    const res = await refetch();
 
-      if (res.isSuccess && res.data) {
-        toast(t('toastTitle'), {
-          description: res.data.data.fact,
-        });
-      } else {
-        toast.error(t('toastError'));
-      }
-    } catch (error) {
-      toast.error(t('fetchError'));
-      console.error(error);
+    if (res.isSuccess && res.data) {
+      toast(t('toastTitle'), {
+        description: res.data.data.fact,
+      });
+    } else {
+      toast.error(t('toastError'));
     }
   };
 
