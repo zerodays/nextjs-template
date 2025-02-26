@@ -3,18 +3,14 @@
 
 import { useGetRandomFact } from '@/api/endpoints';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
 import { toast } from 'sonner';
 
 const ApiExample = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const { refetch } = useGetRandomFact(undefined, {
+  const { isFetching, refetch } = useGetRandomFact(undefined, {
     query: { enabled: false },
   });
 
   const handleFetch = async () => {
-    setIsLoading(true);
-
     try {
       const res = await refetch();
 
@@ -28,13 +24,11 @@ const ApiExample = () => {
     } catch (error) {
       toast.error('An error occurred while fetching the fact');
       console.error(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
-    <Button variant="outline" onClick={handleFetch} disabled={isLoading}>
+    <Button variant="outline" onClick={handleFetch} disabled={isFetching}>
       Call API
     </Button>
   );
