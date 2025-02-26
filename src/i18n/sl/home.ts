@@ -10,4 +10,10 @@ export default {
     submit: 'Pošlji',
     formSubmitted: 'Obrazec poslan',
   },
+  apiExample: {
+    toastTitle: 'Naključno dejstvo o mačkah',
+    toastError: 'Pridobivanje dejstva ni uspelo!',
+    fetchError: 'Pri pridobivanju dejstva je prišlo do napake',
+    submit: 'Pokliči API',
+  },
 } as const;
