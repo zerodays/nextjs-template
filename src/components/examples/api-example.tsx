@@ -4,6 +4,7 @@
 import { useGetRandomFact } from '@/api/endpoints';
 import { Button } from '@/components/ui/button';
 import { useScopedI18n } from '@/i18n/client';
+import { Loader2Icon } from 'lucide-react';
 import { toast } from 'sonner';
 
 const ApiExample = () => {
@@ -32,7 +33,11 @@ const ApiExample = () => {
 
   return (
     <Button variant="outline" onClick={handleFetch} disabled={isFetching}>
-      {t('submit')}
+      {isFetching ? (
+        <Loader2Icon className="h-4 w-4 animate-spin" />
+      ) : (
+        t('submit')
+      )}
     </Button>
   );
 };
