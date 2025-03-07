@@ -10,6 +10,24 @@ const nextConfig = {
     });
     return config;
   },
+
+  headers: () => {
+    // Disable indexing for Vercel preview deployments. For more information, see:
+    // https://vercel.com/guides/are-vercel-preview-deployment-indexed-by-search-engines
+    const headers = [];
+    if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview') {
+      headers.push({
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex',
+          },
+        ],
+        source: '/:path*',
+      });
+    }
+    return headers;
+  },
 };
 
 export default withSentryConfig(
