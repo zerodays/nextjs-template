@@ -15,7 +15,10 @@ const nextConfig = {
     // Disable indexing for Vercel preview deployments. For more information, see:
     // https://vercel.com/guides/are-vercel-preview-deployment-indexed-by-search-engines
     const headers = [];
-    if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview') {
+    if (
+      process.env.VERCEL_ENV === 'preview' ||
+      process.env.VERCEL_ENV === 'development'
+    ) {
       headers.push({
         headers: [
           {
