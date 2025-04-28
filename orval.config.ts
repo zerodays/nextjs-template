@@ -10,7 +10,12 @@ export default defineConfig({
       clean: true,
       mock: true,
       biome: true,
-      baseUrl: 'https://catfact.ninja',
+      override: {
+        mutator: {
+          path: './src/lib/axios-instance.ts',
+          name: 'customAxios',
+        },
+      },
     },
     input: {
       // This will get overridden by /scripts/generate-api.ts
