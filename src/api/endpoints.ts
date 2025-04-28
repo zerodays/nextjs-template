@@ -18,12 +18,6 @@ import type {
   UseQueryOptions,
   UseQueryResult
 } from '@tanstack/react-query'
-import axios from 'axios'
-import type {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios'
 import type {
   Breed,
   CatFact,
@@ -31,7 +25,11 @@ import type {
   GetFactsParams,
   GetRandomFactParams
 } from './model'
+import { customAxios } from '../lib/axios-instance';
+import type { ErrorType } from '../lib/axios-instance';
 
+
+type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
 
 /**
@@ -39,33 +37,34 @@ import type {
  * @summary Get a list of breeds
  */
 export const getBreeds = (
-    params?: GetBreedsParams, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<Breed[]>> => {
-    
-    
-    return axios.get(
-      `https://catfact.ninja/breeds`,{
-    ...options,
-        params: {...params, ...options?.params},}
-    );
-  }
-
+    params?: GetBreedsParams,
+ options?: SecondParameter<typeof customAxios>,signal?: AbortSignal
+) => {
+      
+      
+      return customAxios<Breed[]>(
+      {url: `/breeds`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
 
 export const getGetBreedsQueryKey = (params?: GetBreedsParams,) => {
-    return [`https://catfact.ninja/breeds`, ...(params ? [params]: [])] as const;
+    return [`/breeds`, ...(params ? [params]: [])] as const;
     }
 
     
-export const getGetBreedsQueryOptions = <TData = Awaited<ReturnType<typeof getBreeds>>, TError = AxiosError<unknown>>(params?: GetBreedsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBreeds>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getGetBreedsQueryOptions = <TData = Awaited<ReturnType<typeof getBreeds>>, TError = ErrorType<unknown>>(params?: GetBreedsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBreeds>>, TError, TData>>, request?: SecondParameter<typeof customAxios>}
 ) => {
 
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
   const queryKey =  queryOptions?.queryKey ?? getGetBreedsQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getBreeds>>> = ({ signal }) => getBreeds(params, { signal, ...axiosOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getBreeds>>> = ({ signal }) => getBreeds(params, requestOptions, signal);
 
       
 
@@ -75,39 +74,39 @@ const {query: queryOptions, axios: axiosOptions} = options ?? {};
 }
 
 export type GetBreedsQueryResult = NonNullable<Awaited<ReturnType<typeof getBreeds>>>
-export type GetBreedsQueryError = AxiosError<unknown>
+export type GetBreedsQueryError = ErrorType<unknown>
 
 
-export function useGetBreeds<TData = Awaited<ReturnType<typeof getBreeds>>, TError = AxiosError<unknown>>(
+export function useGetBreeds<TData = Awaited<ReturnType<typeof getBreeds>>, TError = ErrorType<unknown>>(
  params: undefined |  GetBreedsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBreeds>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getBreeds>>,
           TError,
           TData
         > , 'initialData'
-      >, axios?: AxiosRequestConfig}
+      >, request?: SecondParameter<typeof customAxios>}
 
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetBreeds<TData = Awaited<ReturnType<typeof getBreeds>>, TError = AxiosError<unknown>>(
+export function useGetBreeds<TData = Awaited<ReturnType<typeof getBreeds>>, TError = ErrorType<unknown>>(
  params?: GetBreedsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBreeds>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getBreeds>>,
           TError,
           TData
         > , 'initialData'
-      >, axios?: AxiosRequestConfig}
+      >, request?: SecondParameter<typeof customAxios>}
 
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetBreeds<TData = Awaited<ReturnType<typeof getBreeds>>, TError = AxiosError<unknown>>(
- params?: GetBreedsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBreeds>>, TError, TData>>, axios?: AxiosRequestConfig}
+export function useGetBreeds<TData = Awaited<ReturnType<typeof getBreeds>>, TError = ErrorType<unknown>>(
+ params?: GetBreedsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBreeds>>, TError, TData>>, request?: SecondParameter<typeof customAxios>}
 
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get a list of breeds
  */
 
-export function useGetBreeds<TData = Awaited<ReturnType<typeof getBreeds>>, TError = AxiosError<unknown>>(
- params?: GetBreedsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBreeds>>, TError, TData>>, axios?: AxiosRequestConfig}
+export function useGetBreeds<TData = Awaited<ReturnType<typeof getBreeds>>, TError = ErrorType<unknown>>(
+ params?: GetBreedsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getBreeds>>, TError, TData>>, request?: SecondParameter<typeof customAxios>}
 
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
@@ -128,33 +127,34 @@ export function useGetBreeds<TData = Awaited<ReturnType<typeof getBreeds>>, TErr
  * @summary Get Random Fact
  */
 export const getRandomFact = (
-    params?: GetRandomFactParams, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<CatFact>> => {
-    
-    
-    return axios.get(
-      `https://catfact.ninja/fact`,{
-    ...options,
-        params: {...params, ...options?.params},}
-    );
-  }
-
+    params?: GetRandomFactParams,
+ options?: SecondParameter<typeof customAxios>,signal?: AbortSignal
+) => {
+      
+      
+      return customAxios<CatFact>(
+      {url: `/fact`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
 
 export const getGetRandomFactQueryKey = (params?: GetRandomFactParams,) => {
-    return [`https://catfact.ninja/fact`, ...(params ? [params]: [])] as const;
+    return [`/fact`, ...(params ? [params]: [])] as const;
     }
 
     
-export const getGetRandomFactQueryOptions = <TData = Awaited<ReturnType<typeof getRandomFact>>, TError = AxiosError<void>>(params?: GetRandomFactParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getRandomFact>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getGetRandomFactQueryOptions = <TData = Awaited<ReturnType<typeof getRandomFact>>, TError = ErrorType<void>>(params?: GetRandomFactParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getRandomFact>>, TError, TData>>, request?: SecondParameter<typeof customAxios>}
 ) => {
 
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
   const queryKey =  queryOptions?.queryKey ?? getGetRandomFactQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getRandomFact>>> = ({ signal }) => getRandomFact(params, { signal, ...axiosOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getRandomFact>>> = ({ signal }) => getRandomFact(params, requestOptions, signal);
 
       
 
@@ -164,39 +164,39 @@ const {query: queryOptions, axios: axiosOptions} = options ?? {};
 }
 
 export type GetRandomFactQueryResult = NonNullable<Awaited<ReturnType<typeof getRandomFact>>>
-export type GetRandomFactQueryError = AxiosError<void>
+export type GetRandomFactQueryError = ErrorType<void>
 
 
-export function useGetRandomFact<TData = Awaited<ReturnType<typeof getRandomFact>>, TError = AxiosError<void>>(
+export function useGetRandomFact<TData = Awaited<ReturnType<typeof getRandomFact>>, TError = ErrorType<void>>(
  params: undefined |  GetRandomFactParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getRandomFact>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getRandomFact>>,
           TError,
           TData
         > , 'initialData'
-      >, axios?: AxiosRequestConfig}
+      >, request?: SecondParameter<typeof customAxios>}
 
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetRandomFact<TData = Awaited<ReturnType<typeof getRandomFact>>, TError = AxiosError<void>>(
+export function useGetRandomFact<TData = Awaited<ReturnType<typeof getRandomFact>>, TError = ErrorType<void>>(
  params?: GetRandomFactParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getRandomFact>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getRandomFact>>,
           TError,
           TData
         > , 'initialData'
-      >, axios?: AxiosRequestConfig}
+      >, request?: SecondParameter<typeof customAxios>}
 
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetRandomFact<TData = Awaited<ReturnType<typeof getRandomFact>>, TError = AxiosError<void>>(
- params?: GetRandomFactParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getRandomFact>>, TError, TData>>, axios?: AxiosRequestConfig}
+export function useGetRandomFact<TData = Awaited<ReturnType<typeof getRandomFact>>, TError = ErrorType<void>>(
+ params?: GetRandomFactParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getRandomFact>>, TError, TData>>, request?: SecondParameter<typeof customAxios>}
 
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get Random Fact
  */
 
-export function useGetRandomFact<TData = Awaited<ReturnType<typeof getRandomFact>>, TError = AxiosError<void>>(
- params?: GetRandomFactParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getRandomFact>>, TError, TData>>, axios?: AxiosRequestConfig}
+export function useGetRandomFact<TData = Awaited<ReturnType<typeof getRandomFact>>, TError = ErrorType<void>>(
+ params?: GetRandomFactParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getRandomFact>>, TError, TData>>, request?: SecondParameter<typeof customAxios>}
 
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
@@ -217,33 +217,34 @@ export function useGetRandomFact<TData = Awaited<ReturnType<typeof getRandomFact
  * @summary Get a list of facts
  */
 export const getFacts = (
-    params?: GetFactsParams, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<CatFact[]>> => {
-    
-    
-    return axios.get(
-      `https://catfact.ninja/facts`,{
-    ...options,
-        params: {...params, ...options?.params},}
-    );
-  }
-
+    params?: GetFactsParams,
+ options?: SecondParameter<typeof customAxios>,signal?: AbortSignal
+) => {
+      
+      
+      return customAxios<CatFact[]>(
+      {url: `/facts`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
 
 export const getGetFactsQueryKey = (params?: GetFactsParams,) => {
-    return [`https://catfact.ninja/facts`, ...(params ? [params]: [])] as const;
+    return [`/facts`, ...(params ? [params]: [])] as const;
     }
 
     
-export const getGetFactsQueryOptions = <TData = Awaited<ReturnType<typeof getFacts>>, TError = AxiosError<unknown>>(params?: GetFactsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFacts>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getGetFactsQueryOptions = <TData = Awaited<ReturnType<typeof getFacts>>, TError = ErrorType<unknown>>(params?: GetFactsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFacts>>, TError, TData>>, request?: SecondParameter<typeof customAxios>}
 ) => {
 
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
   const queryKey =  queryOptions?.queryKey ?? getGetFactsQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getFacts>>> = ({ signal }) => getFacts(params, { signal, ...axiosOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getFacts>>> = ({ signal }) => getFacts(params, requestOptions, signal);
 
       
 
@@ -253,39 +254,39 @@ const {query: queryOptions, axios: axiosOptions} = options ?? {};
 }
 
 export type GetFactsQueryResult = NonNullable<Awaited<ReturnType<typeof getFacts>>>
-export type GetFactsQueryError = AxiosError<unknown>
+export type GetFactsQueryError = ErrorType<unknown>
 
 
-export function useGetFacts<TData = Awaited<ReturnType<typeof getFacts>>, TError = AxiosError<unknown>>(
+export function useGetFacts<TData = Awaited<ReturnType<typeof getFacts>>, TError = ErrorType<unknown>>(
  params: undefined |  GetFactsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFacts>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getFacts>>,
           TError,
           TData
         > , 'initialData'
-      >, axios?: AxiosRequestConfig}
+      >, request?: SecondParameter<typeof customAxios>}
 
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetFacts<TData = Awaited<ReturnType<typeof getFacts>>, TError = AxiosError<unknown>>(
+export function useGetFacts<TData = Awaited<ReturnType<typeof getFacts>>, TError = ErrorType<unknown>>(
  params?: GetFactsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFacts>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getFacts>>,
           TError,
           TData
         > , 'initialData'
-      >, axios?: AxiosRequestConfig}
+      >, request?: SecondParameter<typeof customAxios>}
 
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetFacts<TData = Awaited<ReturnType<typeof getFacts>>, TError = AxiosError<unknown>>(
- params?: GetFactsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFacts>>, TError, TData>>, axios?: AxiosRequestConfig}
+export function useGetFacts<TData = Awaited<ReturnType<typeof getFacts>>, TError = ErrorType<unknown>>(
+ params?: GetFactsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFacts>>, TError, TData>>, request?: SecondParameter<typeof customAxios>}
 
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Get a list of facts
  */
 
-export function useGetFacts<TData = Awaited<ReturnType<typeof getFacts>>, TError = AxiosError<unknown>>(
- params?: GetFactsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFacts>>, TError, TData>>, axios?: AxiosRequestConfig}
+export function useGetFacts<TData = Awaited<ReturnType<typeof getFacts>>, TError = ErrorType<unknown>>(
+ params?: GetFactsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFacts>>, TError, TData>>, request?: SecondParameter<typeof customAxios>}
 
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
