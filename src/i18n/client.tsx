@@ -18,7 +18,9 @@ export const {
 });
 
 export const useUnsafeI18n = useI18n as unknown as () => UnsafeT;
-export const useUnsafeScopedI18n = useScopedI18n as unknown as () => UnsafeT;
+export const useUnsafeScopedI18n = useScopedI18n as unknown as (
+  scope: string,
+) => UnsafeT;
 
 export function I18nProvider({
   children,
