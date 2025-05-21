@@ -7,5 +7,6 @@ export const { getI18n, getScopedI18n, getStaticParams } = createI18nServer({
 });
 
 export const getUnsafeI18n = getI18n as unknown as () => Promise<UnsafeT>;
-export const getUnsafeScopedI18n =
-  getScopedI18n as unknown as () => Promise<UnsafeT>;
+export const getUnsafeScopedI18n = getScopedI18n as unknown as (
+  scope: string,
+) => Promise<UnsafeT>;
