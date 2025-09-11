@@ -3,14 +3,14 @@ import type { ReactNode } from 'react';
 import './globals.css';
 import env from '@/env';
 
-export const metadata: Metadata = {
-  title: 'NextJS Template',
-  description: 'NextJS template project',
-};
-
-const isDevelopment = env.NODE_ENV === 'development';
-if (isDevelopment) {
-  metadata.title = `[DEV] ${metadata.title}`;
+export function generateMetadata(): Metadata {
+  const baseTitle = 'NextJS Template';
+  const isDevelopment = env.NODE_ENV === 'development';
+  const title = isDevelopment ? `[DEV] ${baseTitle}` : baseTitle;
+  return {
+    title,
+    description: 'NextJS template project',
+  };
 }
 
 export default function RootLayout({
