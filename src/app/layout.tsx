@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   description: 'NextJS template project',
 };
 
+const isDevelopment = env.NODE_ENV === 'development';
+if (isDevelopment) {
+  metadata.title = `[DEV] ${metadata.title}`;
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
