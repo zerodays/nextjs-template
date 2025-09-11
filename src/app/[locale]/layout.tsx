@@ -1,5 +1,4 @@
 import { Toaster } from '@/components/ui/sonner';
-import { I18nProvider } from '@/i18n/client';
 import { type Locale, defaultLocale, isLocale } from '@/i18n/i18n';
 import { cn } from '@/lib/utils';
 import { Inter as FontSans } from 'next/font/google';
@@ -28,11 +27,9 @@ export default async function Layout({
           'min-h-screen bg-background font-sans antialiased',
           fontSans.variable,
         )}>
-        <Providers>
-          <I18nProvider locale={computedLocale}>
-            {children}
-            <Toaster />
-          </I18nProvider>
+        <Providers locale={computedLocale}>
+          {children}
+          <Toaster />
         </Providers>
       </body>
     </html>

@@ -1,12 +1,18 @@
 'use client';
 
+import { I18nProvider } from '@/i18n/client';
+import type { Locale } from '@/i18n/i18n';
 import { AuthProvider } from '@/lib/providers/auth-provider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
 import { type PropsWithChildren, useState } from 'react';
 import { toast } from 'sonner';
 
-export default function Providers({ children }: PropsWithChildren) {
+interface ProvidersProps extends PropsWithChildren {
+  locale: Locale;
+}
+
+export default function Providers({ children, locale }: ProvidersProps) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -48,7 +54,7 @@ export default function Providers({ children }: PropsWithChildren) {
         enableSystem
         disableTransitionOnChange>
         <QueryClientProvider client={queryClient}>
-          {children}
+          <I18nProvider locale={locale}>{children}</I18nProvider>
         </QueryClientProvider>
       </ThemeProvider>
     </AuthProvider>
