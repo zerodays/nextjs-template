@@ -8,7 +8,7 @@ interface ExampleCardProps extends PropsWithChildren {
 
 const ExampleCard = ({ title, subtitle, children }: ExampleCardProps) => {
   return (
-    <div className="flex flex-col gap-y-3 rounded-lg border bg-foreground/5 p-4 shadow-md backdrop-blur-sm animate-in fade-in-10">
+    <div className="flex flex-col gap-y-3 rounded-lg border bg-foreground/5 p-4 shadow-md backdrop-blur-xs animate-in fade-in-10">
       <div className="flex flex-col gap-y-2 text-lg">
         <div className="font-semibold">{title}</div>
         {subtitle && <div className="text-sm">{subtitle}</div>}
