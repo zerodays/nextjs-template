@@ -23,11 +23,6 @@ const SentryExample = () => {
             throw new Error('Sentry Example Frontend Error');
           },
         );
-        toast('Sentry Error has been thrown', {
-          description:
-            'Check Sentry for more details. In development mode sentry is disabled (has no SENTRY_DSN env variable set) by default.',
-        });
-        throw new Error('Sentry Example Frontend Error');
       }}>
       Throw Sentry Error
     </Button>
