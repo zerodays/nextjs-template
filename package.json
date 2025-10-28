@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "pnpm@9.1.0",
   "scripts": {
-    "dev": "infisical run -- next dev --webpack",
+    "dev": "infisical run -- next dev",
     "build": "next build",
     "start": "next start",
     "prepare": "husky install",
@@ -50,7 +50,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@commitlint/config-conventional": "^19.6.0",
-    "@faker-js/faker": "^9.3.0",
+    "@faker-js/faker": "^10.1.0",
     "@tailwindcss/postcss": "^4.1.16",
     "@tailwindcss/typography": "^0.5.19",
     "@testing-library/jest-dom": "^6.6.3",
@@ -67,6 +67,7 @@
     "msw": "^2.7.0",
     "orval": "^7.4.1",
     "postcss": "^8.5.1",
+    "raw-loader": "^4.0.2",
     "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4.1.16",
     "ts-node": "^10.9.2",
