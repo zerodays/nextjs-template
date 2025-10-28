@@ -67,7 +67,7 @@
     "msw": "^2.7.0",
     "orval": "^7.4.1",
     "postcss": "^8.5.1",
-    "tailwind-scrollbar": "^3.1.0",
+    "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4.1.16",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
