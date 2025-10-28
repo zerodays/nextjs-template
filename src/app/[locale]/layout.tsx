@@ -28,6 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
         },
       ],
     },
+    metadataBase: env.NEXT_PUBLIC_BASE_URL,
   };
 }
 
