@@ -1,4 +1,5 @@
 import { withSentryConfig } from '@sentry/nextjs';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // This allows importing markdown files as raw strings
@@ -9,6 +10,16 @@ const nextConfig = {
       type: 'asset/source',
     });
     return config;
+  },
+
+  // Turbopack configuration for markdown files
+  turbopack: {
+    rules: {
+      '*.md': {
+        loaders: ['raw-loader'],
+        as: '*.js',
+      },
+    },
   },
 
   headers: () => {

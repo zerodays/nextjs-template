@@ -1,8 +1,8 @@
 import env from '@/env';
 import Axios, {
-  type AxiosResponse,
   type AxiosError,
   type AxiosRequestConfig,
+  type AxiosResponse,
 } from 'axios';
 
 export const AXIOS_INSTANCE = Axios.create({
@@ -21,7 +21,7 @@ export const customAxios = <T>(
     cancelToken: source.token,
   }).then((data) => data);
 
-  // @ts-ignore
+  // @ts-expect-error
   promise.cancel = () => {
     source.cancel('Query was cancelled');
   };

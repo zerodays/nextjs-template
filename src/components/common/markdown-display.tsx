@@ -6,11 +6,9 @@ interface MarkdownDisplayProps {
 }
 const MarkdownDisplay = ({ content }: MarkdownDisplayProps) => {
   return (
-    <Markdown
-      className="prose prose-zinc min-w-full dark:prose-invert"
-      remarkPlugins={[remarkGfm]}>
-      {content}
-    </Markdown>
+    <div className="prose prose-zinc min-w-full dark:prose-invert">
+      <Markdown remarkPlugins={[remarkGfm]}>{content}</Markdown>
+    </div>
   );
 };
 
