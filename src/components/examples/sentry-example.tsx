@@ -2,6 +2,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import * as Sentry from '@sentry/nextjs';
 import { toast } from 'sonner';
 
 const SentryExample = () => {
@@ -9,19 +10,19 @@ const SentryExample = () => {
     <Button
       variant="outline"
       onClick={() => {
-        // Sentry.startSpan(
-        //   {
-        //     name: "Example Frontend Span",
-        //     op: "test",
-        //   },
-        //   () => {
-        //     toast("Sentry Error has been thrown", {
-        //       description:
-        //         "Check Sentry for more details. In development mode sentry is disabled (has no SENTRY_DSN env variable set) by default.",
-        //     });
-        //     throw new Error("Sentry Example Frontend Error");
-        //   }
-        // );
+        Sentry.startSpan(
+          {
+            name: 'Example Frontend Span',
+            op: 'test',
+          },
+          () => {
+            toast('Sentry Error has been thrown', {
+              description:
+                'Check Sentry for more details. In development mode sentry is disabled (has no SENTRY_DSN env variable set) by default.',
+            });
+            throw new Error('Sentry Example Frontend Error');
+          },
+        );
         toast('Sentry Error has been thrown', {
           description:
             'Check Sentry for more details. In development mode sentry is disabled (has no SENTRY_DSN env variable set) by default.',
