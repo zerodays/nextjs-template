@@ -1,21 +1,26 @@
 import { withSentryConfig } from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // This allows importing markdown files as raw strings
-  // Example: import markdown from './file.md';
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
       type: 'asset/source',
     });
+    config.module.rules.push({
+      test: /\.svg$/i,
+      use: ['@svgr/webpack'],
+    });
     return config;
   },
 
-  // Turbopack configuration for markdown files
   turbopack: {
     rules: {
       '*.md': {
         loaders: ['raw-loader'],
+        as: '*.js',
+      },
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
         as: '*.js',
       },
     },
