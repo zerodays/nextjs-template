@@ -9,7 +9,7 @@ const I18nMiddleware = createI18nMiddleware({
   defaultLocale: defaultLocale,
 });
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   return I18nMiddleware(request);
 }
 
