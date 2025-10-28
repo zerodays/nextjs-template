@@ -1,5 +1,5 @@
-import { Separator } from '@/components/ui/separator';
 import type { PropsWithChildren, ReactNode } from 'react';
+import { Separator } from '@/components/ui/separator';
 
 interface ExampleCardProps extends PropsWithChildren {
   title: ReactNode | string;

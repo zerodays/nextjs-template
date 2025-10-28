@@ -1,7 +1,7 @@
 'use client';
 
 import { Check, ChevronsUpDown } from 'lucide-react';
-
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Command,
@@ -23,7 +23,6 @@ import {
 } from '@/i18n/client';
 import { LOCALES, type Locale } from '@/i18n/i18n';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
 
 const languages = LOCALES.map((locale) => {
   return {

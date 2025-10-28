@@ -1,8 +1,9 @@
 // middleware.ts
-import { createI18nMiddleware } from 'next-international/middleware';
-import type { NextRequest } from 'next/server';
 
-import { LOCALES, defaultLocale } from './i18n/i18n';
+import type { NextRequest } from 'next/server';
+import { createI18nMiddleware } from 'next-international/middleware';
+
+import { defaultLocale, LOCALES } from './i18n/i18n';
 
 const I18nMiddleware = createI18nMiddleware({
   locales: LOCALES,

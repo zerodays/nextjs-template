@@ -1,8 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import useScrollCallback from '@/lib/hooks/use-scroll-callback';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
 
 interface NavbarProps {
   children: React.ReactNode;

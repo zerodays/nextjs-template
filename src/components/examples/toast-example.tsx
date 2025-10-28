@@ -1,8 +1,8 @@
 'use client';
 
+import { toast } from 'sonner';
 /* eslint-disable react/jsx-no-literals */
 import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
 
 const ToastExample = () => {
   return (

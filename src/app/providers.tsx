@@ -1,12 +1,12 @@
 'use client';
 
-import { I18nProvider } from '@/i18n/client';
-import type { Locale } from '@/i18n/i18n';
-import { AuthProvider } from '@/lib/providers/auth-provider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
 import { type PropsWithChildren, useState } from 'react';
 import { toast } from 'sonner';
+import { I18nProvider } from '@/i18n/client';
+import type { Locale } from '@/i18n/i18n';
+import { AuthProvider } from '@/lib/providers/auth-provider';
 
 interface ProvidersProps extends PropsWithChildren {
   locale: Locale;

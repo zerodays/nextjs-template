@@ -1,11 +1,11 @@
-import { Toaster } from '@/components/ui/sonner';
-import env from '@/env';
-import { type Locale, defaultLocale, isLocale } from '@/i18n/i18n';
-import { getScopedI18n } from '@/i18n/server';
-import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
 import type { ReactNode } from 'react';
+import { Toaster } from '@/components/ui/sonner';
+import env from '@/env';
+import { defaultLocale, isLocale, type Locale } from '@/i18n/i18n';
+import { getScopedI18n } from '@/i18n/server';
+import { cn } from '@/lib/utils';
 import Providers from '../providers';
 
 const fontSans = FontSans({ subsets: ['latin'], variable: '--font-sans' });
