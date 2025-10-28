@@ -23,7 +23,7 @@ import { toast } from 'sonner';
 // In case form schema (or its type) is required elsewhere, move schema to a separate file
 const formSchema = z.object({
   // Add localization keys for form field errors (so error messages can be localized)
-  email: z.string().email('home.formExample.emailError'),
+  email: z.email({ error: 'home.formExample.emailError' }),
 });
 
 // Infer TS type from zod schema
