@@ -10,7 +10,7 @@ import {
 } from '@/components/examples';
 import ApiExample from '@/components/examples/api-example';
 import ExampleCard from '@/components/examples/example-card';
-// import { BackgroundBeams } from '@/components/ui/background-beams';
+import { BackgroundBeams } from '@/components/ui/background-beams';
 import { getScopedI18n } from '@/i18n/server';
 import { FaGithub } from 'react-icons/fa';
 import readme from '../../../README.md';
@@ -20,7 +20,7 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col items-stretch gap-y-8 py-4">
-      {/* <BackgroundBeams /> */}
+      <BackgroundBeams />
       <Navbar>
         <a
           className="justify-self-center"
