@@ -76,7 +76,7 @@
     "typescript": "^5.8.2"
   },
   "lint-staged": {
-    "**/*": [
+    "*.{js,jsx,ts,tsx,json,css}": [
       "biome check --write"
     ]
   }
