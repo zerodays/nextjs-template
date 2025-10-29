@@ -7,13 +7,13 @@
     "dev": "infisical run -- next dev",
     "build": "next build",
     "start": "next start",
+    "prepare": "husky",
     "lint": "biome check .",
     "lint:fix": "biome check --write",
     "test": "jest",
     "test:watch": "jest --watch",
     "i18n": "tsx ./scripts/validate-translations.ts",
-    "gen-api": "infisical run --command 'tsx ./scripts/generate-api.ts'",
-    "prepare": "husky"
+    "gen-api": "infisical run --command 'tsx ./scripts/generate-api.ts'"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
