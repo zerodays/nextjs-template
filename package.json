@@ -2,7 +2,7 @@
   "name": "nextjs-template",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@9.1.0",
+  "packageManager": "pnpm@10.20.0",
   "scripts": {
     "dev": "infisical run -- next dev",
     "build": "next build",
