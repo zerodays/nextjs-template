@@ -11,7 +11,7 @@ import {
 } from '@/components/examples';
 import ApiExample from '@/components/examples/api-example';
 import ExampleCard from '@/components/examples/example-card';
-// import { BackgroundBeams } from '@/components/ui/background-beams';
+// import { BackgroundBeams } from "@/components/ui/background-beams";
 import { getScopedI18n } from '@/i18n/server';
 import readme from '../../../README.md';
 
