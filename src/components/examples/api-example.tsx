@@ -1,10 +1,10 @@
 'use client';
 
+import { Loader2Icon } from 'lucide-react';
+import { toast } from 'sonner';
 import { useGetRandomFact } from '@/api/endpoints';
 import { Button } from '@/components/ui/button';
 import { useScopedI18n } from '@/i18n/client';
-import { Loader2Icon } from 'lucide-react';
-import { toast } from 'sonner';
 
 const ApiExample = () => {
   const t = useScopedI18n('home.apiExample');

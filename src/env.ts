@@ -10,7 +10,7 @@ const env = createEnv({
     NODE_ENV: z
       .enum(['development', 'production', 'test'])
       .default('development'),
-    SENTRY_AUTH_TOKEN: z.string().min(1),
+    SENTRY_AUTH_TOKEN: z.string().optional(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -18,12 +18,12 @@ const env = createEnv({
    * 💡 You'll get type errors if these are not prefixed with NEXT_PUBLIC_.
    */
   client: {
-    NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
-    NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE: z.coerce.number().optional(),
     // TODO: Below env is meant to be an url to the API,
     // which should not be optional when added to the project.
     // (it is used for generating the API client with the "gen-api" command)
     NEXT_PUBLIC_API_URL: z.string().optional(),
+    NEXT_PUBLIC_BASE_URL: z.string().optional(),
+    NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -34,10 +34,9 @@ const env = createEnv({
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
     SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN,
-    NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
-    NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE:
-      process.env.NEXT_PUBLIC_SENTRY_TRACE_SAMPLE_RATE,
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
   },
 });
 

@@ -1,9 +1,11 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2Icon, SendIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
-
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -15,15 +17,12 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useScopedI18n } from '@/i18n/client';
-import { Loader2Icon, SendIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
 
 // Always use zod to validate your form
 // In case form schema (or its type) is required elsewhere, move schema to a separate file
 const formSchema = z.object({
   // Add localization keys for form field errors (so error messages can be localized)
-  email: z.string().email('home.formExample.emailError'),
+  email: z.email({ error: 'home.formExample.emailError' }),
 });
 
 // Infer TS type from zod schema

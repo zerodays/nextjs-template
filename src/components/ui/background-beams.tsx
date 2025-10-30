@@ -1,7 +1,7 @@
 'use client';
-import { cn } from '@/lib/utils';
 import { motion } from 'motion/react';
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 export const BackgroundBeams = React.memo(
   ({ className }: { className?: string }) => {
@@ -60,7 +60,7 @@ export const BackgroundBeams = React.memo(
     return (
       <div
         className={cn(
-          'pointer-events-none absolute inset-0 -z-10 flex h-full w-full items-center justify-center [mask-repeat:no-repeat] [mask-size:40px]',
+          'pointer-events-none absolute inset-0 -z-10 flex h-full w-full items-center justify-center mask-no-repeat mask-size-[40px]',
           className,
         )}>
         <svg
@@ -129,7 +129,7 @@ export const BackgroundBeams = React.memo(
             </radialGradient>
           </defs>
         </svg>
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-background" />
       </div>
     );
   },

@@ -1,9 +1,9 @@
-import env from '@/env';
 import Axios, {
-  type AxiosResponse,
   type AxiosError,
   type AxiosRequestConfig,
+  type AxiosResponse,
 } from 'axios';
+import env from '@/env';
 
 export const AXIOS_INSTANCE = Axios.create({
   baseURL: env.NEXT_PUBLIC_API_URL,
@@ -21,7 +21,7 @@ export const customAxios = <T>(
     cancelToken: source.token,
   }).then((data) => data);
 
-  // @ts-ignore
+  // @ts-expect-error
   promise.cancel = () => {
     source.cancel('Query was cancelled');
   };

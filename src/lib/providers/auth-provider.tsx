@@ -1,4 +1,5 @@
-import { type ReactNode, createContext, useContext, useState } from 'react';
+import { createContext, type ReactNode, useContext, useState } from 'react';
+
 type Dispatch = (Auth: string) => void;
 
 type AuthProviderProps = { children: ReactNode; initialState?: string | null };

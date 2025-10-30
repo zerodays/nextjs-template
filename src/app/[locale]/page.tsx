@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-no-literals */
+import { FaGithub } from 'react-icons/fa';
 import CodeLink from '@/components/common/code-link';
 import LanguageSwitcher from '@/components/common/language-switcher';
 import MarkdownDisplay from '@/components/common/markdown-display';
@@ -13,7 +13,6 @@ import ApiExample from '@/components/examples/api-example';
 import ExampleCard from '@/components/examples/example-card';
 import { BackgroundBeams } from '@/components/ui/background-beams';
 import { getScopedI18n } from '@/i18n/server';
-import { FaGithub } from 'react-icons/fa';
 import readme from '../../../README.md';
 
 export default async function Home() {
