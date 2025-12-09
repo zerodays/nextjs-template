@@ -34,7 +34,7 @@ Getting started with this Next.js template is straightforward. Follow these step
 
 ## 🧐 What's Included?
 
-- **Next.js 14** with [App Router](https://nextjs.org/docs/app/building-your-application/routing)
+- **Next.js 16** with [App Router](https://nextjs.org/docs/app/building-your-application/routing)
 - **TailwindCSS** for styling
   - Exposes styles as global CSS variables and theme object
   - Includes plugins like [tailwindcss-animate](https://github.com/jamiebuilds/tailwindcss-animate), [tailwindcss/typography](https://github.com/tailwindlabs/tailwindcss-typography), and [tailwind-scrollbar](https://github.com/adoxography/tailwind-scrollbar)
